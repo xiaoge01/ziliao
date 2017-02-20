@@ -1,0 +1,23 @@
+
+  Intent intent = new Intent(activity, MusicPlayService.class);
+  
+  //绑定Service (intent,ServiceConnection的一个对象，BIND_AUTO_CREATE)
+  bindService(intent, serviceConnection,BIND_AUTO_CREATE);
+  startService(intent);
+
+
+  //初始化 ServiceConnection
+
+  private MusicPlayService.MyIBinder myIBinder;
+
+  public ServiceConnection serviceConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+            //使Activity与Service建立连接
+            myIBinder = (MusicPlayService.MyIBinder) iBinder;
+        }
+        @Override
+        public void onServiceDisconnected(ComponentName componentName) {
+            //使Activity与Service取消连接
+        }
+    };

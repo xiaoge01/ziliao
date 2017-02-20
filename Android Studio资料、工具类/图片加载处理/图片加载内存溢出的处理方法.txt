@@ -1,0 +1,5 @@
+
+ 使用BimtmapFactory.option
+
+ BitmapFactory.Options options = new BitmapFactory.Options();  
+ options.inSampleSize = 2;//图片宽高都为原来的二分之一，即图片为原来的四分之一 

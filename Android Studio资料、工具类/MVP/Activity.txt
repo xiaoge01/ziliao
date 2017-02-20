@@ -1,0 +1,45 @@
+public class MyActivity extends BaseActivity implements View {
+
+    @Override
+    public int getLayout() {
+        return R.layout.activity_register;
+    }
+ 
+    /**
+     * 点击注册
+     */
+    @OnClick(R.id.btn_Register)
+    public void onClick() {
+       
+        // 进行注册的功能：模拟场景进行注册，业务逻辑
+        new Presenter(this).register();
+
+
+    }
+
+    // 跳转页面
+    public void navigationToHome() {
+        activityUtils.startActivity(HomeActivity.class);
+        finish();
+        // 发送本地广播去关闭页面
+        Intent intent = new Intent(MainActivity.MAIN_ACTION);
+        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+    }
+
+    // 显示信息
+    public void showMessage(String msg) {
+        activityUtils.showToast(msg);
+    }
+
+    // 隐藏进度
+    public void hideProgress() {
+        if (mDialog != null) {
+            mDialog.dismiss();
+        }
+    }
+
+    // 显示进度
+    public void showProgress() {
+        mDialog = ProgressDialog.show(this, "注册", "亲，正在注册中，请稍后~");
+    }
+}

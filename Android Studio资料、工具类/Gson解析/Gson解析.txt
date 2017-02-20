@@ -1,0 +1,55 @@
+
+/**
+ * Gson 解析
+ */
+
+
+    public String jsonStr = "{\"message\":\"OK\",\"status\":0,\"data\":[{\"subgrp\":[{\"subgroup\":\"军事\",\"subid\":1},{\"subgroup\":\"社会\",                            \"subid\":2}],\"gid\":1,\"group\":\"新闻\"},{\"subgrp\":[{\"subgroup\":\"基金\",\"subid\":4},{\"subgroup\":\"股票\",                            \"subid\":3}],\"gid\":2,\"group\":\"财经\"},{\"subgrp\":[{\"subgroup\":\"手机\",\"subid\":5}],\"gid\":3,\"group\":\"科技                            \"},{\"subgrp\":[{\"subgroup\":\"英超\",\"subid\":7},{\"subgroup\":\"NBA\",\"subid\":8}],\"gid\":4,\"group\":\"体育                            \"}]}";
+
+    public String jsonArray = "[{\"subgroup\":\"军事\",\"subid\":1},{\"subgroup\":\"社会\",\"subid\":2}]";
+
+
+/**
+     * Json字符串直接转化成Java实体类
+     */
+    public void gson01() {
+        Gson gson = new Gson();
+        NewsVo newsVo = gson.fromJson(jsonStr, NewsVo.class);
+        Log.e("AAA", ">>>" + newsVo.toString());
+    }
+
+    /**
+     * 解析Json字符串
+     * 首先通过 new TypeToken<T>(){}.getType() 传Java实体类 把Java实体类转换成Type，然后再把Json字符串转化成Type
+     */
+    public void gson02() {
+        Gson gson = new Gson();
+        Type type = new TypeToken<NewsVo>() {
+        }.getType();
+        NewsVo newsVo = gson.fromJson(jsonStr, type);
+        Log.e("AAA", ">>>" + newsVo + "...");
+    }
+
+    /**
+     * 解析Json数组
+     * 首先通过 new TypeToken<T>(){}.getType() 传List<E>实体类 把Java实体类转换成Type，然后再把JsonArray转化成Type
+     */
+    public void gson03() {
+        Gson gson = new Gson();
+        Type type = new TypeToken<List<NewsVo.Data.Subgrp>>() {
+        }.getType();
+        List<NewsVo.Data.Subgrp> newsVo = gson.fromJson(jsonArray, type);
+        Log.e("AAA", ">>>" + newsVo + "...");
+    }
+
+    /**
+     * 把Java实体类转换成Json字符串
+     */
+    public void gson04() {
+        Dog dog = new Dog();
+        dog.setAge(10);
+        dog.setName("小花");
+        Gson gson = new Gson();
+        String str = gson.toJson(dog);
+        Log.e("AAA", ">>>" + str + "...");
+    }

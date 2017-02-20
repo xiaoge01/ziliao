@@ -1,0 +1,54 @@
+  
+   private MyOpenHelper myOpenHelper;
+
+   private SQLiteDatabase database;
+    
+   // ① 建立数据库 需要 （Context,数据库名称，游标，版本号）
+        myOpenHelper = new MyOpenHelper(context, "FAV", null, 1);
+
+   // ② 把数据库设置成可编辑
+        database = myOpenHelper.getWritableDatabase();
+
+   //创建之后使用
+
+
+
+   /**
+     * 往数据库添加内容
+     */
+
+    public void addSQ(int NewsId, String JsonResult) {
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("id", NewsId);
+        contentValues.put("jsonresult", JsonResult);
+
+        // insert 添加(表名，null,ContentValues的对象)
+        database.insert(MyOpenHelper.sqlitename, null, contentValues);
+    }
+
+    /**
+     * 把数据库内容删除
+     */
+
+    public void delSQ(int NewsId) {
+
+        // delete 删除（表名，根据什么条件删除？，删除条件）
+        database.delete(MyOpenHelper.sqlitename, "id=?", new String[]{String.valueOf(NewsId)});
+
+    }
+
+    /**
+     * 查看数据库内容//(前提条件：必须要有一个数据库 SqliteBaseDate)
+     */
+
+    public void querySQ() {
+        
+        // rawQuery 查看（"select*from "+表名，null）-->返回一个游标
+        Cursor cursor = database.rawQuery("select*from " + MyOpenHelper.sqlitename, null);
+        while (cursor.moveToNext()) {
+            String jsonresult = cursor.getString(cursor.getColumnIndex("jsonresult"));
+           
+        }
+       
+    }

@@ -1,0 +1,34 @@
+/**
+ * ViewPager的Adapter 想展示Fragment 需要继承 FragmentPagerAdapter(展示View 继承 PagerAdapter)
+ */
+
+public class FragmentNewsAdapter extends FragmentPagerAdapter{
+
+    private ArrayList<Fragment> fragments;
+    private ArrayList<String> namelist;
+
+    public FragmentNewsAdapter(FragmentManager fm,ArrayList<Fragment> fragments,ArrayList<String> namelist) {
+        super(fm);
+        this.fragments=fragments;
+        this.namelist=namelist;
+    }
+
+    @Override
+    public Fragment getItem(int position) {
+        return fragments.get(position);
+    }
+
+    @Override
+    public int getCount() {
+        return fragments.size();
+    }
+
+    /**
+     * 手动重写方法 getPageTitle，添加标题头
+     */
+    @Override
+    public CharSequence getPageTitle(int position) {
+        //需要传一个名字列表过来 namelist
+        return namelist.get(position);
+    }
+}

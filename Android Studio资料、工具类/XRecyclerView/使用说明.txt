@@ -1,0 +1,11 @@
+注意事项 ：
+
+ 要使用 XRecyclerView，需要去导入这个包 File --> New --> Import Module ，
+ 
+ 选择当前文件夹下的 XRecyclerView 文件，
+
+ 然后 File --> Project Structure --> app --> 右边添加 第三个 选中导入进来的 XRecyclerView。
+
+
+
+ 尝试：添加依赖：compile 'com.jcodecraeer:xrecyclerview:1.3.2'

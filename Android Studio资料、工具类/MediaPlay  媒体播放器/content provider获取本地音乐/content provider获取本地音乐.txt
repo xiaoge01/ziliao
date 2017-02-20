@@ -1,0 +1,38 @@
+
+public List<MusicMessageVo> getmusic() {
+        musicMessageVos = new ArrayList<>();
+
+        Uri uri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;//资源位置
+        ContentResolver contentResolver = context.getContentResolver();//ContentProvider 的核心类
+        //查找所有音乐
+        Cursor cursor = contentResolver.query(uri, null, null, null, null);
+        while (cursor.moveToNext()) {
+            //获取歌名
+            String name = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.DISPLAY_NAME));
+            //获取歌手
+            String singer = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST));
+            //获取专辑
+            String album = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM));
+            //获取ID
+            int songid = cursor.getInt(cursor.getColumnIndex(MediaStore.Audio.Media._ID));
+            //获取专辑ID
+            int albumid = cursor.getInt(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID));
+            //获取内存
+            long size = cursor.getLong(cursor.getColumnIndex(MediaStore.Audio.Media.SIZE));
+            //获取路径
+            String path = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.DATA));
+
+
+            Log.e("MUSIC", name + "," + singer + "," + album + "," + songid + "," + albumid + "," + size);
+            musicMessageVos.add(new MusicMessageVo(name, singer, album, songid, albumid, size, path));
+        }
+        return musicMessageVos;
+    }
+}
+
+
+ 注 ：获取音乐中的图片
+ 
+ //获取图片（context,歌的Id,专辑Id,true）
+ circleIv.setImageBitmap(MusicGetPic.getArtwork(this, musicMessageVos.get(position).getSongid(), musicMessageVos.get(position).getAlbumid(), true));
+    

@@ -1,0 +1,56 @@
+//Style 文件
+
+  <style name="myanimation">
+
+        <!-- 动画进入和退出 -->
+
+        <item name="android:windowEnterAnimation">@anim/translate_down</item>
+        <item name="android:windowExitAnimation">@anim/tanslate_up</item>
+
+    </style>
+
+
+//Activity 代码
+
+      //直接写在oncreat方法里面不行，需要用Handler延迟去实现
+
+         bt1 = (Button) findViewById(R.id.bt01);
+
+		// 找到弹出框的布局
+
+		View view = LayoutInflater.from(this).inflate(R.layout.view, null);
+
+		// 弹出框的布局 布局的宽和高
+
+		popupWindow = new PopupWindow(view, LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+
+		// 添加弹出框的动画效果
+
+		popupWindow.setAnimationStyle(R.style.myanimation);
+
+               //获取popwindow焦点
+               //设置焦点，true点击边上取消popwindow,false点击无效
+
+                popupWindow.setFocusable(true);
+
+               //设置popwindow如果点击外面区域，便关闭。
+
+               popupWindow.setOutsideTouchable(true);
+	}
+
+	public void tan(View v) {
+
+		// 点击按钮 跳出弹出框
+		// showAsDropDown 在...下面 在按钮下方
+
+		popupWindow.showAsDropDown(bt1);
+
+	}
+
+	public void shou(View v) {
+
+		// 关闭
+
+		popupWindow.dismiss();
+
+	}

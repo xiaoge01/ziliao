@@ -1,0 +1,89 @@
+
+   /**
+     * 用一个第三方的库：到相册、到相机、剪切的功能：photoCropper
+     * 与Popwindow 结合使用
+     */
+
+   1、//跳转相册相机的依赖
+      compile 'org.hybridsquad.android.photocropper:library:2.1.0'
+
+   2、会报错，在清单中的Appication下添加 tools:replace="android:icon"
+
+   3、跳转到相册、相机
+
+            ①跳转到相册：
+
+            // 获取图片前，清除上一次剪切的图片的缓存
+            CropHelper.clearCachedCropFile(cropHandler.getCropParams().uri);
+            // 到相册
+            Intent intent = CropHelper.buildCropFromGalleryIntent(cropHandler.getCropParams());
+            startActivityForResult(intent, CropHelper.REQUEST_CROP);
+            Toast.makeText(AccountActivity.this, "到相册", Toast.LENGTH_SHORT).show();
+       
+            ①跳转到相机：
+
+            // 获取图片前，清除上一次剪切的图片的缓存
+            CropHelper.clearCachedCropFile(cropHandler.getCropParams().uri);
+            // 到相机
+            Intent intent = CropHelper.buildCaptureIntent(cropHandler.getCropParams().uri);
+            startActivityForResult(intent, CropHelper.REQUEST_CAMERA);
+            Toast.makeText(AccountActivity.this, "到相机", Toast.LENGTH_SHORT).show();
+       
+    
+    4、处理拍照或者选择图片的结果
+     
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // 处理得到结果（CropHandler,requestCode,resultCode, data）ps:需要一个cropHandler
+        CropHelper.handleResult(cropHandler, requestCode, resultCode, data);
+
+    }
+
+   5、初始化 CropHandler 进行图片处理
+     
+    private CropHandler cropHandler = new CropHandler() {
+        // 图片剪切完以后结果（uri 图片保存的地址）
+        @Override
+        public void onPhotoCropped(Uri uri) {
+
+            String path = uri.getPath();
+            File file=new File(uri.getPath());
+            Toast.makeText(AccountActivity.this, path , Toast.LENGTH_SHORT).show();
+        }
+
+        // 取消
+        @Override
+        public void onCropCancel() {
+            Toast.makeText(AccountActivity.this, "取消", Toast.LENGTH_SHORT).show();
+        }
+
+        // 失败
+        @Override
+        public void onCropFailed(String message) {
+            Toast.makeText(AccountActivity.this, "失败", Toast.LENGTH_SHORT).show();
+
+        }
+
+        // 剪切的选项设置：Uri(剪切图片保存的路径)
+        @Override
+        public CropParams getCropParams() {
+            CropParams cropParams = new CropParams();
+            return cropParams;
+        }
+
+        // 拿到上下文
+        @Override
+        public Activity getContext() {
+            return AccountActivity.this;
+        }
+    };
+
+   6、销毁
+    @Override
+    protected void onDestroy() {
+        if (cropHandler.getCropParams() != null)
+            CropHelper.clearCachedCropFile(cropHandler.getCropParams().uri);
+        super.onDestroy();
+    }

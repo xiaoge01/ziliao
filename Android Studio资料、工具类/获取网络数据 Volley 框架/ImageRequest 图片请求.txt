@@ -1,0 +1,77 @@
+   
+   /**
+     * Volley  图片请求
+     * <p>
+     * 如果设定的宽和高都是0，那么下载到的图片将会按照实际的大小进行解码，也就是不压缩。
+     * 如果宽和高中的一个或两个值不为0，那么图片的宽/高（取决于你设定了宽还是高）会压缩至设定好的值，而另一个宽/高将会按比例改变。
+     * 如果宽和高都不是0，那么就按照你设定的宽高进行解码，显示。
+     * <p>
+     * 图片的颜色属性，Bitmap.Config下的几个常量都可以在这里使用：
+     * 其中ARGB_8888可以展示最好的颜色属性，每个图片像素占据4个字节的大小
+     * 而RGB_565则表示每个图片像素占据2个字节大小
+     */
+
+
+    private void getimageVolley(){
+
+        RequestQueue requestQueue=Volley.newRequestQueue(this);
+
+        ImageRequest imageRequest=new ImageRequest(imageurl, new Response.Listener<Bitmap>() {
+            @Override
+            public void onResponse(Bitmap response) {
+               //连接网络服务器失败
+                Log.e("AAA","请求图片结果：");
+                image.setImageBitmap(response);
+            }
+        }, 0, 0, Bitmap.Config.ARGB_8888, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //连接网络服务器失败
+                Log.e("AAA","请求图片失败："+error.getMessage());
+            }
+        });
+
+        requestQueue.add(imageRequest);
+
+    }
+
+
+
+    /**
+     * Volley 缓存图片请求
+     */
+
+
+    public void getimageVolley01(){
+
+        RequestQueue requestQueue=Volley.newRequestQueue(this);
+
+        ImageLoader imageLoader=new ImageLoader(requestQueue, new ImageLoader.ImageCache() {
+
+            @Override
+            public Bitmap getBitmap(String url) {
+                Log.e("BBB","getBitmap");
+                return null;
+            }
+
+            @Override
+            public void putBitmap(String url, Bitmap bitmap) {
+                Log.e("BBB","putBitmap");
+            }
+        });
+
+        //获取请求
+        imageLoader.get(imageurl, new ImageLoader.ImageListener() {
+            @Override
+            public void onResponse(ImageLoader.ImageContainer response, boolean isImmediate) {
+                //请求结果
+                image.setImageBitmap(response.getBitmap());
+                Log.e("BBB","onResponse");
+            }
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("BBB","onErrorResponse");
+            }
+        });
+    }

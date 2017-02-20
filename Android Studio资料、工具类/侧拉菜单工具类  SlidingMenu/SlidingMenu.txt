@@ -1,0 +1,60 @@
+public void initSlidingMenu() {
+        //初始化 slidingMenu 
+        slidingMenu = new SlidingMenu(this);
+        //设置为左右两边菜单栏
+        slidingMenu.setMode(SlidingMenu.LEFT_RIGHT);
+        //设置全屏范围都可以打开菜单栏 TOUCHMODE_FULLSCREEN，边角打开TOUCHMODE_MARGIN,不可打开TOUCHMODE_NONE
+        slidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
+        //设置菜单栏的宽度
+        slidingMenu.setBehindOffsetRes(R.dimen.slidingmenu_offset);
+        //设置菜单栏与类的关联：当前类显示的为菜单栏的中间界面
+        slidingMenu.attachToActivity(this, SlidingMenu.SLIDING_CONTENT);
+
+        //设置关闭监听
+        slidingMenu.setOnCloseListener(new SlidingMenu.OnCloseListener() {
+            @Override
+            public void onClose() {
+                activityMain.setBackgroundColor(getResources().getColor(R.color.background01));
+            }
+        });
+
+        //设置右菜单栏样式（能直接传xml布局或者直接传View）
+        slidingMenu.setSecondaryMenu(R.layout.rightfragment);
+        //先打开一个空白xml,用Fragment替换
+        leftFragmentMenu = new LeftFragmentMenu();
+        rightFragmentMenu = new RightFragmentMenu();
+
+        ft = fm.beginTransaction();
+        ft.replace(R.id.left, leftFragmentMenu);
+        ft.replace(R.id.right, rightFragmentMenu);
+        ft.commit();
+
+
+        //设置左菜单栏样式（能直接传xml布局或者直接传View）
+        View view = LayoutInflater.from(this).inflate(R.layout.layout_menu, null);
+        final Button btn01 = (Button) view.findViewById(R.id.btn01);
+        btn01.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                slidingMenu.showContent();//展示中央界面
+                tv.setText(btn01.getText().toString());
+            }
+        });
+        slidingMenu.setMenu(view);
+
+        //设置右菜单栏样式（能直接传xml布局或者直接传View）
+        slidingMenu.setSecondaryMenu(R.layout.layout_menu_right);
+
+    }
+
+    public void tc01(View v) {
+
+        slidingMenu.showMenu();//展示左侧菜单栏
+
+    }
+
+    public void tc02(View v) {
+
+        slidingMenu.showSecondaryMenu();//展示右侧菜单栏
+
+    }

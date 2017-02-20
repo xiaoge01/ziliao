@@ -1,0 +1,36 @@
+
+   //从本地手机相册选取
+   Intent intent = new Intent();
+   intent.setAction(Intent.ACTION_PICK);
+   intent.setData(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+   //携参索求跳转
+   startActivityForResult(intent, 1);
+   //获取照片后关闭弹出框
+   popupWindow.dismiss();
+
+   /**
+     *使用携参索求跳转 必须重写 onActivityResult 方法
+     */
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode==1){
+
+            //从图库选取图片成功后
+            Uri selectedImage = data.getData();
+            String[] filePathColumn = {MediaStore.Images.Media.DATA};
+            Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
+
+            cursor.moveToFirst();
+            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+            String picturePath = cursor.getString(columnIndex);
+            cursor.close();
+
+            //把图片文件转化成Bitmap
+            Bitmap bitmap = BitmapFactory.decodeFile(picturePath);
+            userhome_image.setImageBitmap(bitmap);
+            
+        }
+    }

@@ -1,0 +1,22 @@
+
+  //初始化RefreshLayout
+        //使用本对象作为key，用来记录上一次刷新的事件，如果两次下拉刷新间隔太近，不会触发刷新方法
+        refreshLayout.setLastUpdateTimeRelateObject(this);
+        //设置刷新时显示的背景色
+        refreshLayout.setBackgroundResource(R.color.recycler_bg);
+        //关闭header所耗时长
+        refreshLayout.setDurationToCloseHeader(1500);
+        //实现刷新，加载回调
+        refreshLayout.setPtrHandler(new PtrDefaultHandler2() {
+            //加载更多时触发
+            @Override
+            public void onLoadMoreBegin(PtrFrameLayout frame) {
+                presenter.loadData(pageType);
+            }
+            //刷新时触发
+            @Override
+            public void onRefreshBegin(PtrFrameLayout frame) {
+                presenter.refreshData(pageType);
+            }
+        });
+    }

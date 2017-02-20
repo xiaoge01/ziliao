@@ -1,0 +1,26 @@
+
+    //绑定Activity
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent) {
+        Log.e("TAL", "onBind");
+
+        //返回值为 建的Binder的类
+        return new MyIBinder();
+    }
+
+    // 建个Binder的类，绑定Activity
+    public class MyIBinder extends Binder {
+
+      //传属性
+      public MediaPlayer mp01;
+      public MyIBinder(MediaPlayer mp){
+         mp01=mp;
+      }
+
+      //传方法
+      public void pause() {
+            mp.pause();
+      }
+
+    }

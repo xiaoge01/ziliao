@@ -1,0 +1,20 @@
+   
+  //在 Module:app 中的 android{
+                         defaultConfig {
+                               
+              （添加 ndk 配置文件） }
+                              }
+
+  // ndk 配置文件
+
+  ndk {
+    //选择要添加的对应cpu类型的.so库。
+    abiFilters 'armeabi', 'armeabi-v7a', 'armeabi-v8a'
+    // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
+  }
+
+   manifestPlaceholders = [
+        JPUSH_PKGNAME : applicationId,
+        JPUSH_APPKEY : "您的appkey", //JPush上注册的包名对应的appkey.(测试appkey：5fb3633d94f621b14850b194)
+        JPUSH_CHANNEL : "developer-default", //暂时填写默认值即可.
+  ]

@@ -1,0 +1,11 @@
+ 
+  1、添加依赖： //RecyclerView
+               compile 'com.android.support:recyclerview-v7:24.0.0'
+
+  2、  //设置布局管理器 GridLayoutManager(this,3)
+        RecyclerView.LayoutManager manager = new GridLayoutManager(this,3);
+        recyclerView.setLayoutManager(manager);
+
+  3、建里适配器 MainAdapter
+
+  4、在适配器里建供外部使用点击监听的回调接口 

@@ -1,0 +1,50 @@
+
+    //findId
+   @Bind(R.id.btn01)
+    Button btn01;
+
+   //实现接口
+   implements View.OnTouchListener
+
+   //设置监听
+   btn01.setOnTouchListener(this);
+
+    /**
+     * 触摸监听//重写方法
+     * Activity 自带的触摸监听针对整个布局，通过实现接口监听可以针对某个控件
+     * view 控件ID,MotionEvent 触摸的各个状态
+     */
+    @Override
+    public boolean onTouch(View view, MotionEvent motionEvent) {
+        //Log.e("ONCLICK", "触摸监听");
+        //motionEvent.getAction() 是各种触摸状态
+        switch (motionEvent.getAction()){
+            //按下监听
+            case MotionEvent.ACTION_DOWN:
+                Log.e("ONCLICK", "按下监听");
+                break;
+            //移动监听
+            case MotionEvent.ACTION_MOVE:
+                Log.e("ONCLICK", "移动监听");
+                break;
+            //松开监听
+            case MotionEvent.ACTION_UP:
+                Log.e("ONCLICK", "松开监听");
+                break;
+        }
+        //返回值为false：按先后顺序监听，触摸、长按、触摸、点击
+        //返回值为true：只触发触摸监听
+        return false;
+    }
+
+
+   /**
+     * 触摸监听//Activity手动重写方法
+     * Activity 自带的触摸监听针对整个布局，通过实现接口监听可以针对某个控件
+     */
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        //Log.e("ONCLICK", "触摸监听");
+        //默认返回值:super.onTouchEvent(event)为false
+        return false;
+    }

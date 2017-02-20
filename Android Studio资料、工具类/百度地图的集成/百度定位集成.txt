@@ -1,0 +1,117 @@
+
+  1、添加架包
+
+  2、添加 Service   
+        <!--百度定位的Service-->
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote"></service>
+
+  3、添加权限：
+    <!-- 这个权限用于进行网络定位-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"></uses-permission>
+    <!-- 这个权限用于访问GPS定位-->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"></uses-permission>
+    <!-- 用于访问wifi网络信息，wifi信息会用于进行网络定位-->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"></uses-permission>
+    <!-- 获取运营商信息，用于支持提供运营商信息相关的接口-->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
+    <!-- 这个权限用于获取wifi的获取权限，wifi信息会用来进行网络定位-->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"></uses-permission>
+    <!-- 用于读取手机当前的状态-->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"></uses-permission>
+    <!-- 写入扩展存储，向扩展卡写入数据，用于写入离线定位数据-->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
+    <!-- 访问网络，网络定位需要上网-->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- SD卡读取权限，用户写入离线定位数据-->
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"></uses-permission>
+
+  4、代码操作：
+
+  /**
+     * 定位设置
+     */
+    private void initLocation() {
+        // 前置：激活定位图层
+        map.setMyLocationEnabled(true);
+        // 第一步，初始化LocationClient类:LocationClient类必须在主线程中声明，需要Context类型的参数。
+        locationClient = new LocationClient(getContext().getApplicationContext());
+
+        //添加参数
+        LocationClientOption option = new LocationClientOption();
+        option.setOpenGps(true);// 打开GPS
+        option.setCoorType("bd09ll");// 设置百度坐标类型，默认gcj02，会有偏差，bd9ll百度地图坐标类型，将无偏差的展示到地图上
+        option.setIsNeedAddress(true);// 需要地址信息
+
+        // 第二步，配置定位SDK参数(需要在 LocationClientOption 中添加)
+        locationClient.setLocOption(option);
+
+        // 第三步，实现BDLocationListener接口(对定位设置监听)
+        locationClient.registerLocationListener(bdLocationListener);
+
+        // 第四步，开始定位
+        locationClient.start();
+    }
+
+    /**
+     * 定位监听
+     */
+    private BDLocationListener bdLocationListener=new BDLocationListener() {
+        // 获取到定位结果
+        @Override
+        public void onReceiveLocation(BDLocation bdLocation) {
+            // 如果没有拿到结果，重新请求
+            if (bdLocation==null){
+                locationClient.requestLocation();
+                return;
+            }
+
+            // 定位结果的经纬度
+            double latitude = bdLocation.getLatitude();//纬度
+            double longitude = bdLocation.getLongitude();//经度
+
+            LatLng latLng = new LatLng(latitude, longitude);//获取到经纬度
+            //定位的位置
+            String currentAddr = bdLocation.getAddrStr();
+
+            Log.i("TAG","定位的位置："+currentAddr+"，经纬度："+latitude+","+longitude);
+
+            // 设置定位图层展示的数据
+            MyLocationData data = new MyLocationData.Builder()
+
+                    // 定位数据展示的经纬度
+                    .latitude(latitude)
+                    .longitude(longitude)
+                    .accuracy(100f)// 定位精度的大小
+                    .build();
+
+            // 定位数据展示到地图上
+            map.setMyLocationData(data);
+
+            // 移动到定位的地方，在地图上展示定位的信息：位置
+            moveToLocation();
+
+        }
+    };
+
+   /**
+     * 定位监听，定位的按钮：移动到定位的地方
+     */
+    @OnClick(R.id.tv_located)
+    public void moveToLocation(){
+
+        // 地图状态的设置：设置到定位的地方
+        MapStatus mapStatus = new MapStatus.Builder()
+                .target(latLng)// 定位的位置(需要经纬度，在上面获取)
+                .rotate(0)
+                .overlook(0)
+                .build();
+
+        // 更新状态
+        MapStatusUpdate update = MapStatusUpdateFactory.newMapStatus(mapStatus);
+
+        // 更新展示的地图的状态
+        map.animateMapStatus(update);
+    }

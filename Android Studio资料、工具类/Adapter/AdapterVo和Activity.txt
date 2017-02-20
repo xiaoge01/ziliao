@@ -1,0 +1,68 @@
+
+//AdapterVo 自定义适配器的实体类
+
+public class ApplicationVo {
+
+	private int pic;// 图标
+
+	private String name;// 名字
+
+	private String introduce;// 简介
+
+	private int bgColor;// 背景
+
+	public ApplicationVo(int pic, String name, String introduce, int bgColor) {
+		this.pic = pic;
+		this.name = name;
+		this.introduce = introduce;
+		this.bgColor = bgColor;
+	}
+
+	public int getPic() {
+		return pic;
+	}
+
+	public void setPic(int pic) {
+		this.pic = pic;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getIntroduce() {
+		return introduce;
+	}
+
+	public void setIntroduce(String introduce) {
+		this.introduce = introduce;
+	}
+
+	public int getBgColor() {
+		return bgColor;
+	}
+
+	public void setBgColor(int bgColor) {
+		this.bgColor = bgColor;
+	}
+
+}
+
+//Activity 添加内容
+
+// 设置数据源+Adapter
+		applicationVos = new ArrayList<ApplicationVo>();
+
+		applicationVos.add(new ApplicationVo(R.drawable.address_book, "通讯录", null, Color.YELLOW));
+		applicationVos.add(new ApplicationVo(R.drawable.camera, "相机", null, Color.GREEN));
+		applicationVos.add(new ApplicationVo(R.drawable.clock, "时钟", null, Color.GREEN));
+		applicationVos.add(new ApplicationVo(R.drawable.camera, "相机", null, Color.GREEN));
+		applicationVos.add(new ApplicationVo(R.drawable.camera, "相机", null, Color.GREEN));
+		applicationVos.add(new ApplicationVo(R.drawable.camera, "相机", null, Color.GREEN));
+
+		MyAdapter adapter = new MyAdapter(this, applicationVos);
+		main_gv.setAdapter(adapter);

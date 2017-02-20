@@ -1,0 +1,57 @@
+
+
+
+<application
+
+        //初始化Applicetion
+        android:name=".BaiDuApplication"
+
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+（1）在application中添加开发密钥
+
+ <application>  
+
+     <meta-data  
+         android:name="com.baidu.lbsapi.API_KEY"  
+         android:value="开发者 key" />  
+
+ </application>
+
+2）添加所需权限
+
+ <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+ <uses-permission android:name="android.permission.INTERNET"/>
+ <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
+ <uses-permission android:name="android.permission.WAKE_LOCK"/>
+ <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+ <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+ <uses-permission android:name="android.permission.GET_TASKS" />
+ <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+ <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+
+第三步，在展示地图的布局xml文件中添加地图控件；
+
+ <com.baidu.mapapi.map.MapView  
+     android:id="@+id/bmapView"  
+     android:layout_width="fill_parent"  
+     android:layout_height="fill_parent"  
+     android:clickable="true" />
+
+第四步，在应用程序创建时初始化 SDK引用的Context 全局变量：
+
+public class MainActivity extends Activity {  
+    @Override  
+    protected void onCreate(Bundle savedInstanceState) {  
+        super.onCreate(savedInstanceState);  
+ 
+        //在使用SDK各组件之前初始化context信息，传入ApplicationContext  
+        //注意该方法要再setContentView方法之前实现  
+        SDKInitializer.initialize(getApplicationContext());  
+        setContentView(R.layout.activity_main);  
+    }  
+}

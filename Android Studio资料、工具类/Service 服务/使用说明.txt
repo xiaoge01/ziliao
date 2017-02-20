@@ -1,0 +1,13 @@
+
+
+   1、建一个Service的类，去继承Service，重写方法 OnCreat,OnStart,OnBind
+
+   2、去AndroidManifest 清单中注册：<service android:name=".service.MusicPlayService"/>
+
+   3、建立Activity与Service的链接：
+                                  ①Service 进行绑定（ServiceBinder）
+                                   
+                                  ②Activity 进行连接和绑定（ActivityBinder）
+
+   
+      

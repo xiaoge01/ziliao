@@ -1,0 +1,8 @@
+
+  1、添加依赖：compile 'com.hannesdorfmann.mosby:mvp:2.0.1'
+
+  2、建立View视图接口类
+
+  3、建立presenter业务类
+
+  4、在Activity中实现

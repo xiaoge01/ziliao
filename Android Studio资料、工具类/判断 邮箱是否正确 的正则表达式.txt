@@ -1,0 +1,19 @@
+   //判断email格式是否正确
+
+   public boolean isEmail(String email) {
+
+   String str = "^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$";
+
+   Pattern p = Pattern.compile(str);
+
+   Matcher m = p.matcher(email);
+
+   if(m.matches()){
+
+      if(email.substring(email.lastIndexOf(".")).equals(".com")){
+
+         return true;
+      }
+    }
+   return false;
+  }

@@ -1,0 +1,22 @@
+ 
+  //在同一个 TextView 中，对不同的字段设置属性
+
+   // # 1 同一个TextView改变局部字体外形
+
+   //title_name.setText(Html.fromHtml("<font color='#FF0000'>" + newsVo.getTitle() + "</font>" + " 的评论"));
+
+
+
+   // # 2 同一个TextView改变局部字体外形
+
+        SpannableString spannableString = new SpannableString("ddd" + " 的评论");
+                              // new 一个需要设置的类型（context,字的属性，start,stop,falgs）--->网上可查找
+        spannableString.setSpan(new TextAppearanceSpan(this, R.style.CommentTitleStyle), 0, 2, 0);
+        title_name.setText(spannableString);
+
+
+
+    <style name="CommentTitleStyle">
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textSize">20sp</item>
+    </style>

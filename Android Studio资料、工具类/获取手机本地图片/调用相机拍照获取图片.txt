@@ -1,0 +1,34 @@
+   
+        File file=new File();
+        //拍照获取图片  准备拍照存储路径(获取手机路径 需要添加读取SD卡的权限)
+        file = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES + "/a"+System.currentTimeMillis()+".jpg");
+        Log.e("AAA", "照片路径：" + file.getAbsolutePath());
+
+
+        // 调用相机拍照
+        Intent intent = new Intent();
+        intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file.getAbsoluteFile()));
+
+
+        //携参索求跳转
+        startActivityForResult(intent, 1);
+
+        //获取照片后关闭popwindow
+        popupWindow.dismiss();
+
+
+   /**
+     *使用携参索求跳转 必须重写 onActivityResult 方法
+     */
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode==1){
+                        //把图片文件转化成Bitmap
+            Bitmap bitmap= BitmapFactory.decodeFile(file.getAbsolutePath());
+            userhome_image.setImageBitmap(bitmap);
+        }
+    }

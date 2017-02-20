@@ -1,0 +1,66 @@
+/**
+ * ② class 去继承 XRecyclerView.Adapter 适配器，需要传一个自己的 ViewHolder
+ * 重写 3 个方法
+ */
+public class NewsAdapter extends XRecyclerView.Adapter<NewsAdapter.MyViewHolder> {
+
+    private ArrayList<NewsVo> newsVos;
+
+    public NewsAdapter(ArrayList<NewsVo> newsVos) {
+
+        this.newsVos = newsVos;
+    }
+
+
+    /**
+     * ③  用来创建Xml 布局，但是需要返回一个 MyViewHolder
+     * 去  new 一个 MyViewHolder
+     */
+    @Override
+    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.news_adapter, null);
+        //初始化 MyViewHolder，需要传一个 View
+        MyViewHolder myViewHolder = new MyViewHolder(view);
+        return myViewHolder;
+    }
+
+    /**
+     * ⑤ 对每一个控件进行赋值
+     */
+    @Override
+    public void onBindViewHolder(MyViewHolder holder, int position) {
+        holder.news_adapter_iv.setImageResource(R.drawable.biz_navigation_tab_pics);
+        holder.news_adapter_title.setText(newsVos.get(position).getTitle());
+        holder.news_adapter_message.setText(newsVos.get(position).getSummary());
+        holder.news_adapter_time.setText(newsVos.get(position).getStamp());
+    }
+
+    @Override
+    public int getItemCount() {
+        return newsVos.size();
+    }
+
+
+    /**
+     * ① 先建一个 MyViewHolder 去继承 XRecyclerView.ViewHolder，用来存放控件
+     */
+    public class MyViewHolder extends XRecyclerView.ViewHolder {
+        //初始化控件
+        ImageView news_adapter_iv;
+        TextView news_adapter_title;
+        TextView news_adapter_message;
+        TextView news_adapter_time;
+
+        public MyViewHolder(View itemView) {
+            /**
+             * ④ 对每一个控件 FindViewById
+             */
+            super(itemView);
+            news_adapter_iv = (ImageView) itemView.findViewById(R.id.news_adapter_iv);
+            news_adapter_title = (TextView) itemView.findViewById(R.id.news_adapter_title);
+            news_adapter_message = (TextView) itemView.findViewById(R.id.news_adapter_message);
+            news_adapter_time = (TextView) itemView.findViewById(R.id.news_adapter_time);
+
+        }
+    }
+}

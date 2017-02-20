@@ -1,0 +1,6 @@
+  
+  使用 TableLayout 需要导包 compile 'com.android.support:design:25.0.1'
+
+  MainActivity 中需要建立ViewPager和TableLayout之间的联系
+
+  TableLayout.setupWithViewPager(ViewPager);

@@ -1,0 +1,42 @@
+MyAdapter01 adapter01 = new MyAdapter01(view, namelist);
+
+		pager.setAdapter(adapter01);
+		// 设置滑动监听
+		pager.setOnPageChangeListener(new OnPageChangeListener() {
+
+			@Override
+			// 滑动的位置
+			public void onPageSelected(int arg0) {
+//				Log.e("TAGG", "arg0>>>" + arg0);
+				if (arg0 == 0) {
+					iv01.setImageResource(R.drawable.point_down);
+					iv02.setImageResource(R.drawable.point_up);
+					iv03.setImageResource(R.drawable.point_up);
+					bt.setVisibility(View.GONE);
+					bt01.setVisibility(View.GONE);
+				}else if(arg0==1){
+					iv01.setImageResource(R.drawable.point_up);
+					iv02.setImageResource(R.drawable.point_down);
+					iv03.setImageResource(R.drawable.point_up);
+					bt.setVisibility(View.GONE);
+					bt01.setVisibility(View.GONE);
+				}else if(arg0==2){
+					iv01.setImageResource(R.drawable.point_up);
+					iv02.setImageResource(R.drawable.point_up);
+					iv03.setImageResource(R.drawable.point_down);
+					bt.setVisibility(View.VISIBLE);
+					bt01.setVisibility(View.VISIBLE);
+				}
+			}
+
+			@Override
+			public void onPageScrolled(int arg0, float arg1, int arg2) {
+				// Log.e("TAGG", "arg0>>>"+arg0);//位置
+				// Log.e("TAGG", "arg1>>>"+arg1);//百分比
+				// Log.e("TAGG", "arg2>>>"+arg2);
+			}
+
+			@Override
+			public void onPageScrollStateChanged(int arg0) {
+				// arg0=0,没有操作;arg0=1,正在操作;arg0=2,滑动结束;
+//				Log.e("TAGG", "arg1>>>" + arg0);

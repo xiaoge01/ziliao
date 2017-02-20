@@ -1,0 +1,7 @@
+
+   1、添加依赖：//上拉刷新，下载加载的库
+               compile 'in.srain.cube:ptr-load-more:1.0.2'
+
+   2、xml中添加 与 RecyclerView 结合使用
+
+   3、代码中实现

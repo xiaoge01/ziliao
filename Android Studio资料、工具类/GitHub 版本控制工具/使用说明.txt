@@ -1,0 +1,58 @@
+1、安装Git
+
+2、初始化仓库：git init
+
+   在你想要提交的文件夹下右击→Git Base Here，会出现一个控制台，在控制台中输入git init即可初始化当前文件夹的Git仓库，次仓库创建完成后在当前文件夹会出现一个 .git 文件，所有的文件信息都存放在 .git 中。
+
+
+
+3、添加用户&密码
+
+   第一次初始化git仓库，需要添加一个账户和密码，按照提示输入即可。
+   git config --global user.email "you@example.com"-->你的邮箱
+   git config --global user.name "Your Name"-->你的名字
+
+
+4、添加上传文件：git add a.txt
+
+   如若想往仓库里面里面添加文件，可使用 git add a.txt 做添加，如若需要添加文件夹下的全部文件，则使用 git add . 即可。
+
+5、提交暂缓区文件到库中： git commit -m '第n次提交'
+
+   如果想把仓库中的文件添加到暂缓区，可使用 git commit -m '第n次提交' 语句，此语句一旦使用，git会在仓库中给你此次提交生成一个版本号，此版本号可用作查找、修改、回退功能。
+
+6、查看文件状态：git status
+
+   如果你想看所有文件的当前状态（包括未提交、已提交、修改、删除），可使用 git status 查看。
+
+7、查看文件修改内容：git diff a.txt
+
+8、查看提交版本：git log 
+
+   查看已存在的版本
+
+9、回退上一个版本：git reset --hard HEAD^^(^代表版本数)
+
+10、查看版本内容：cat a.txt
+
+11、查看版本号：git reflog
+
+    查看所有版本包括回调自动产生的一个版本
+
+12、回退到指定版本：git reset --hard 版本号
+
+三、将自己的项目提交到GitHub官网
+
+   1、首先需要在GitHub官网注册自己的账号
+
+   2、然后新建仓库，按照仓库提示语句去做即可
+
+     ① new repository
+     ② 将生成的代码复制进来 (第一次上传)（第二次直接 git push 就行）
+     
+     ③ 可能需要输入 用户名和密码
+     ④ 提交完成
+
+注：下载
+        1、git clone 版本网址  下载
+        2、直接网站中 download zip 下载

@@ -1,0 +1,8 @@
+  
+
+  // 参考Demo的添加jar包的方式
+    sourceSets {
+        main {
+            jniLibs.srcDir 'libs'
+        }
+    }

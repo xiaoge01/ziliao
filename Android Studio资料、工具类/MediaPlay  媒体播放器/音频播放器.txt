@@ -1,0 +1,76 @@
+
+   //初始化媒体播放器
+
+        mp = new MediaPlayer();
+
+   //设置资源
+
+        mp.reset();//（初始化MediaPlayer时可不写）
+        try {
+            //获取资源
+            mp.setDataSource(musicMessageVo.getPath());
+
+            //准备 (本地)  ===>         异步准备（获取网络资源时使用 实现接口 OnPreparedListener 必须设置监听)               
+            mp.prepare();              // mp.prepareAsync();  准备好之后的代码写在 接口所重写的方法中
+                                       @Override
+                                       public void onPrepared(MediaPlayer mediaPlayer) {       
+                                           //  播放
+                                           mediaPlayer.start();
+                                       }
+                                
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        //播放
+        mp.start();
+
+
+   mp.stop();//暂停
+   mp.release();释放资源
+
+
+   小知识：SeekBar 拖动条（相当于进度条）
+          想要实现拖动更新，要实现接口 OnSeekBarChangeListener，并且设置监听
+
+     @Override
+    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+    }
+
+    @Override
+    public void onStartTrackingTouch(SeekBar seekBar) {
+
+    }
+
+    @Override
+    public void onStopTrackingTouch(SeekBar seekBar) {
+
+        //手指松开屏幕
+        mp.seekTo(seekBar.getProgress()); ---> 实现拖动更新
+
+    }
+
+    // #  设置监听（非必需）
+        mp.setOnCompletionListener(this);//播放完成之后的监听
+        mp.setOnErrorListener(this);//错误监听
+        mp.setOnPreparedListener(this);//准备好资源的监听
+        mp.setOnBufferingUpdateListener(this);//缓冲监听
+
+  //播放发生错误之后的监听
+  @Override
+    public boolean onError(MediaPlayer mp, int what, int extra) {
+
+        Log.e("TAL", "播放错误：" + what);
+        //判断是否是最后一曲，不是就播放以一曲，是就从头开始播放
+        if (currPosition == musicVos.size() - 1) {
+            currPosition = 0;
+        } else {
+            currPosition++;
+        }
+        musicVo = musicVos.get(currPosition);
+        mp.stop();
+        playMusic();
+
+        return false;
+    }

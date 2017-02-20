@@ -1,0 +1,50 @@
+   
+   /**
+     * 展示列表之前 先要初始化  XRecyclerView
+     */
+    public void newXRecyclerView() {
+        // ① 设置 滑动的方向
+        //需要 LinearLayoutManager 管理类
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        //设置滑动方向
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        //将设置好的方向给 XRecyclerView 控件使用,用setLayoutManager的方法
+        news_listview.setLayoutManager(layoutManager);
+
+        // ② 设置 可上下滑动
+        news_listview.setPullRefreshEnabled(true);//设置可刷新
+        news_listview.setLoadingMoreEnabled(true);//设置可加载
+
+        // ③ 设置 刷新和加载的动画 (动画放在 ProgressStyle 中)
+        news_listview.setRefreshProgressStyle(ProgressStyle.BallBeat);//设置刷新动画
+        news_listview.setLoadingMoreProgressStyle(ProgressStyle.BallBeat);//设置加载动画
+
+        // ④ 对滑动设置监听 class 实现 XRecyclerView.LoadingListener 监听
+        news_listview.setLoadingListener(this);
+    }
+
+   /**
+     * 下拉刷新
+     */
+    @Override
+    public void onRefresh() {
+        GetHttpResource(true); //重新获取网络数据
+        //正在刷新时设置不可继续刷新
+        news_listview.setPullRefreshEnabled(false);//设置不可刷新
+        news_listview.setLoadingMoreEnabled(false);//设置不可加载
+    }
+
+    /**
+     * 上拉加载
+     */
+    @Override
+    public void onLoadMore() {
+        GetHttpResource(false); //重新获取网络数据
+        //正在加载时设置不可继续加载
+        news_listview.setPullRefreshEnabled(false);//设置不可刷新
+        news_listview.setLoadingMoreEnabled(false);//设置不可加载
+    }
+}
+
+  news_listview.refreshComplete();//刷新完成
+  news_listview.loadMoreComplete();//加载完成

@@ -1,0 +1,63 @@
+  
+    //自定义视频播放    
+
+    private SurfaceView sv;
+    private SurfaceHolder surfaceHolder;
+
+        //findId 相当于初始化  得到了播放器
+        sv = (SurfaceView) findViewById(R.id.sv);
+        //获得一个控制器，
+        surfaceHolder = sv.getHolder();
+        //对控制器添加监听(需要实现接口 Callback ，需要重写方法)
+        surfaceHolder.addCallback(this);
+        //设置控制器类型
+        surfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);//缓冲的类型
+        //准备播放(需要媒体播放器)
+        mp = new MediaPlayer();
+  
+    //创建开始播放
+    @Override
+    public void surfaceCreated(SurfaceHolder surfaceHolder) {
+        try {
+            //设置资源
+            mp.reset();// 第一次初始化可不写
+            //获取资源
+            mp.setDataSource(Environment.getRootDirectory().getAbsolutePath() + "/video.avi");
+
+             // 准备资源(网络资源需要异步准备 实现接口 OnPreparedListener 必须设置监听)
+             // mp.prepareAsync();
+            
+            mp.prepare();
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.e("YY", "异常");
+        }
+
+        //准备完成之后，设置媒体播放器与显示器之间的联系
+        mp.setDisplay(surfaceHolder);
+        //播放
+        mp.start();
+        //拖动进度条更新播放进度
+        seekbar.setOnSeekBarChangeListener(this);
+    }
+
+   小知识：SeekBar 拖动条（相当于进度条）
+          想要实现拖动更新，要实现接口 OnSeekBarChangeListener，并且设置监听
+
+     @Override
+    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+    }
+
+    @Override
+    public void onStartTrackingTouch(SeekBar seekBar) {
+
+    }
+
+    @Override
+    public void onStopTrackingTouch(SeekBar seekBar) {
+
+        //手指松开屏幕
+        mp.seekTo(seekBar.getProgress()); ---> 实现拖动更新
+
+    }

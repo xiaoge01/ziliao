@@ -1,0 +1,66 @@
+ 
+   /**
+     * 初始化百度地图
+     */
+    private void initMapView() {
+
+        // #4 初始化地图状态
+        MapStatus.Builder builder = new MapStatus.Builder();
+        builder.zoom(15);// 3--21：默认的是12
+        builder.overlook(0);// 俯仰的角度
+        builder.rotate(0);// 旋转的角度
+        // #3 构建状态
+        MapStatus mapStatus = builder.build();//设置完成后构建
+
+        // #2 设置百度地图的设置信息
+        BaiduMapOptions baiduMapOptions = new BaiduMapOptions();
+        baiduMapOptions.mapStatus(mapStatus);//需要设置地图的状态
+        baiduMapOptions.compassEnabled(true);// 是否显示指南针
+        baiduMapOptions.zoomGesturesEnabled(true);// 是否允许缩放手势
+        baiduMapOptions.scaleControlEnabled(false);// 不显示比例尺
+        baiduMapOptions.zoomControlsEnabled(false);// 不显示缩放的控件
+
+        // #1 初始化百度地图,需要设置一些属性
+        MapView mapView = new MapView(getContext(), baiduMapOptions);
+
+        // #5 在布局上添加地图：0，代表第一位
+        mapFrame.addView(mapView, 0);
+
+        //(对地图进行一些操作) 拿到地图的操作类(控制器：操作地图等都是使用这个)
+        map = mapView.getMap();
+    }
+
+   //一些基础的设置  
+  @OnClick({R.id.iv_scaleUp, R.id.iv_scaleDown, R.id.tv_satellite, R.id.tv_compass})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            //放大
+            case R.id.iv_scaleUp:
+                //重新对地图设置状态
+                map.setMapStatus(MapStatusUpdateFactory.zoomIn());
+                break;
+            //缩小
+            case R.id.iv_scaleDown:
+                map.setMapStatus(MapStatusUpdateFactory.zoomOut());
+                break;
+            //切换卫星和普通地图
+            case R.id.tv_satellite:
+                //获取原地图
+                int mapType = map.getMapType();
+                //判断原地图是是否是卫星地图(获取切换后的地图类型)
+                mapType = mapType == BaiduMap.MAP_TYPE_NORMAL ? BaiduMap.MAP_TYPE_SATELLITE : BaiduMap.MAP_TYPE_NORMAL;
+                map.setMapType(mapType);
+                // 根据地图类型改变卫星和普通的文字的显示
+                String msg = mapType == BaiduMap.MAP_TYPE_NORMAL ? "卫星" : "普通";
+                tvSatellite.setText(msg);
+                break;
+            //打开关闭指南针
+            case R.id.tv_compass:
+                Log.e("AAA", "指南针");
+                //判断指南针是否开着
+                boolean compassEnabled = map.getUiSettings().isCompassEnabled();
+                //取反
+                map.getUiSettings().setCompassEnabled(!compassEnabled);
+                break;
+        }
+    }

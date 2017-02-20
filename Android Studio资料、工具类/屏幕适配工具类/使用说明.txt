@@ -1,0 +1,10 @@
+1、根据要适配的手机，计算出最小宽度（以400dp为例）
+
+2、在Project目录下建立对应的Values-sw400dp,并在该文件夹下建一个空的dimens.xml文件
+
+3、建立一个Java测试类：File->new Module->java library,把DimenTool工具类复制到Java测试类里右键run
+
+
+注：默认的Values 最小宽度是320dp,适配4.0"寸480*800像素的手机
+    默认的dimens.xml下面，必须有数值
+

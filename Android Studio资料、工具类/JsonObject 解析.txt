@@ -1,0 +1,30 @@
+//JSON 解析              
+  
+//把结果转化成 JSONObject 对象
+                JSONObject jsonObject = new JSONObject(result);
+
+                if (jsonObject.getInt("status") == 0) {
+
+                    //把对象转化成 JSONArray 数组-->数组名字
+                    JSONArray jsonArray = jsonObject.getJSONArray("data");
+
+                    for (int i = 0; i < jsonArray.length(); i++) {
+
+                        //把数组转化成 JSONObject 的每一个对象
+                        JSONObject jsonObject01 = jsonArray.getJSONObject(i);
+
+                        JSONArray jsonArray01 = jsonObject01.getJSONArray("subgrp");
+
+                        for (int j = 0; j < jsonArray01.length(); j++) {
+
+                            HttpResourceVo httpResourceVo = new HttpResourceVo();
+
+                            JSONObject jsonObject02 = jsonArray01.getJSONObject(j);
+
+                            httpResourceVo.setNewsname(jsonObject02.getString("subgroup"));
+                            httpResourceVo.setSubid(jsonObject02.getInt("subid"));
+
+                            httpResourceVos.add(httpResourceVo);
+                        }
+                    }
+                }

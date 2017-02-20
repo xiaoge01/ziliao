@@ -1,0 +1,54 @@
+
+      /**
+     * 地图状态改变的监听
+     */
+    private BaiduMap.OnMapStatusChangeListener mapStatusChangeListener = new BaiduMap.OnMapStatusChangeListener() {
+        @Override
+        public void onMapStatusChangeStart(MapStatus mapStatus) {
+
+        }
+
+        @Override
+        public void onMapStatusChange(MapStatus mapStatus) {
+
+        }
+
+        @Override
+        public void onMapStatusChangeFinish(MapStatus mapStatus) {
+            //获取当前状态下的经纬度
+            LatLng target = mapStatus.target;
+            // 确实地图的状态发生变化了（与默认的经纬度比较）
+            if (target != defultlatLng) {
+//                // 学习添加覆盖物的功能
+//                addMarker(target);
+
+                // 地图状态发生变化以后实时获取当前区域内的宝藏
+                updateMapArea();
+               
+                defultlatLng = target;
+            }
+        }
+    };
+
+
+   /**
+     * 实时获取宝藏区域
+     */
+    private void updateMapArea() {
+        // 当前地图的状态
+        MapStatus mapStatus = map.getMapStatus();
+        // 当前的经纬度
+        double longitude = mapStatus.target.longitude;
+        double latitude = mapStatus.target.latitude;
+
+        // 根据地图的位置拿到的一个区域
+        AreaVo area = new AreaVo();
+        area.setMaxLat(Math.ceil(latitude));
+        area.setMaxLng(Math.ceil(longitude));
+        area.setMinLat(Math.floor(latitude));
+        area.setMinLng(Math.floor(longitude));
+
+        //开始获取宝藏、涉及到网络请求使用MVP业务分离
+        new MapPresenter(this).getTreasure(area);
+
+    }

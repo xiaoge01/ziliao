@@ -1,0 +1,9 @@
+public interface RegisterView {
+    void showProgress();
+
+    void hideProgress();
+
+    void showMessage(String msg);
+
+    void navigationToHome();
+}

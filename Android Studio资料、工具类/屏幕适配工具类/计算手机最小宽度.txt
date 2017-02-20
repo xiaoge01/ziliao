@@ -1,0 +1,12 @@
+
+        //在不知道手机像素的情况下，使用以下方法获取手机像素
+        //获取父控件
+        DisplayMetrics displayMetrics=new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        //获取运行手机的高和宽（像素1280*720（4.7））
+        int g=displayMetrics.heightPixels;
+        int k=displayMetrics.widthPixels;
+        //计算手机实际宽度（单位：dp）
+        int kuan= (int) ((k*160)/(Math.sqrt(k*k+g*g)/5));
+        Log.e("aa","像素（宽和高）:"+k+"*"+g);
+        Log.e("aa","手机实际宽:"+kuan);

@@ -1,0 +1,6 @@
+
+ //使用 Xutils 需要导入架包  compile 'com.jiechic.library:xUtils:2.6.14'
+
+ //如果 添加请求方式错误，需要加入：useLibrary 'org.apache.http.legacy'
+ 
+  //在 Module:app 里面 ===》在 android {...最后加入 useLibrary 'org.apache.http.legacy' }

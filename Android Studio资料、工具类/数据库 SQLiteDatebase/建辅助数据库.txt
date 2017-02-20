@@ -1,0 +1,19 @@
+
+   /**
+    * 为了建数据库提前建立的辅助数据库
+    */
+
+  //继承 SQLiteOpenHelper 辅助类数据库
+
+  //Creat 创建数据库
+
+   @Override
+    public void onCreate(SQLiteDatabase sqLiteDatabase) {
+
+        //建表-->"creat table "+表格名字+列名( 字符串 varchar,)
+        // creat table和 表格名字 之间必须要有空格
+        String sqlite="creat table "+sqlitename+"( id int, jsonStr varchar)";
+        //执行
+        sqLiteDatabase.execSQL(sqlite);
+
+    }

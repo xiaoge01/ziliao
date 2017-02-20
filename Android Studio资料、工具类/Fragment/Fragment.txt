@@ -1,0 +1,30 @@
+
+  使用Fragment有两种：
+                    一：App包下面的：只需继承 Activity,因为需要初始化FragmentManager ===》getFragmentManager();
+
+
+                    二：V4包下面的：必须继承 FragmentActivity,因为需要初始化FragmentManager ===》getSupportFragmentManager();
+
+  一般都用 V4包下面的，可以向下兼容多个版本
+
+  
+    private FragmentV4A fragmentV4A;
+    private android.support.v4.app.FragmentManager fm;
+    private android.support.v4.app.FragmentTransaction ft;
+
+    /**
+     * 每开启一个事务在提交之前能替换多个Fragment，提交以后，不能再次替换，需要重新开启
+     */
+
+    public void fragmenta(View v) {
+
+        fragmentV4A=new FragmentV4A();
+
+        fm=getSupportFragmentManager();
+        //开启事务
+        ft=fm.beginTransaction();
+        //替换布局
+        ft.replace(R.id.framelayout,fragmentV4A);
+        //提交布局
+        ft.commit();
+    }

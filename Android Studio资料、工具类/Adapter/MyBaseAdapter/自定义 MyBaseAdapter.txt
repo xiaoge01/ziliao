@@ -1,0 +1,48 @@
+/**
+ * 范型 需要传一个对象
+ */
+public class NewsAdapter extends MyBaseAdapter<NewsVo> {
+
+    private ArrayList<NewsVo> newsVos;
+
+    public NewsAdapter(ArrayList<NewsVo> newsVos) {
+        //父类需要子类把对象的集合传过去
+        super(newsVos);
+        this.newsVos = newsVos;
+    }
+    /**
+     * 手动重写getview方法
+     */
+    @Override
+    public View getView(int i, View view, ViewGroup viewGroup) {
+
+        ViewHolder viewHolder;//建一个内部类   用来储存findID
+        if (view == null) {
+
+            viewHolder = new ViewHolder();
+            view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.news_adapter, null);
+            viewHolder.news_adapter_iv = (ImageView) view.findViewById(R.id.news_adapter_iv);
+            viewHolder.news_adapter_title = (TextView) view.findViewById(R.id.news_adapter_title);
+            viewHolder.news_adapter_message = (TextView) view.findViewById(R.id.news_adapter_message);
+            viewHolder.news_adapter_time = (TextView) view.findViewById(R.id.news_adapter_time);
+
+            view.setTag(viewHolder);
+        } else {
+            viewHolder = (ViewHolder) view.getTag();
+        }
+
+        viewHolder.news_adapter_iv.setImageResource(R.drawable.biz_navigation_tab_pics);
+        viewHolder.news_adapter_title.setText(newsVos.get(i).getTitle());
+        viewHolder.news_adapter_message.setText(newsVos.get(i).getSummary());
+        viewHolder.news_adapter_time.setText(newsVos.get(i).getStamp());
+        return view;
+    }
+
+    class ViewHolder {
+
+        ImageView news_adapter_iv;
+        TextView news_adapter_title;
+        TextView news_adapter_message;
+        TextView news_adapter_time;
+    }
+}

@@ -1,0 +1,49 @@
+//直接传的是 View 列表
+
+public class MyAdapter01 extends PagerAdapter {
+	private ArrayList<View> viewlist;
+	private ArrayList<String> namelist;
+
+	public MyAdapter01(ArrayList<View> viewlist, ArrayList<String> namelist) {
+		this.viewlist = viewlist;
+		this.namelist = namelist;
+	}
+
+	@Override
+	public int getCount() {
+		return viewlist.size();
+	}
+
+	@Override
+	public boolean isViewFromObject(View arg0, Object arg1) {
+		return arg0 == arg1;
+	}
+
+	/**
+	 * 下面两个方法需要手动重写 instantiateItem 和 destroyItem
+	 */
+	@Override
+	public Object instantiateItem(ViewGroup container, int position) {
+		// 添加 view
+		container.addView(viewlist.get(position));
+		return viewlist.get(position);
+	}
+
+	@Override
+	public void destroyItem(ViewGroup container, int position, Object object) {
+		// 删除 view
+		container.removeView(viewlist.get(position));
+	}
+        
+        /**
+	 * 重写方法 getPageTitle 添加标题头
+	 */
+	@Override
+	public CharSequence getPageTitle(int position) {
+		 
+               //需要传一个名字列表过来 namelist
+		return namelist.get(position);
+
+	}
+
+}

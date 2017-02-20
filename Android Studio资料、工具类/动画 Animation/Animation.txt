@@ -1,0 +1,88 @@
+Translate  位移动画
+
+<!-- Y坐标0到整个界面的X坐标的70%p -->
+<!-- duration  持续时间 3秒-->
+<!-- repeatCount 位移次数   -1 代表无限循环-->
+<!-- repeatMode 开始位置 restart 从新开始移动 reverse 移到最后从最后开始返回 -->
+<!-- startOffset 动画之间的时间    每次移动移动隔2面开始 -->
+<!-- fillAfter  true表示结束的位置，flase位置回到初始位置 -->
+
+<translate xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:fromYDelta="0" 
+    android:toYDelta="70%p"
+    android:duration="3000"
+    android:repeatCount="-1"
+    android:repeatMode="reverse"
+    android:startOffset="2000"
+    android:fillAfter="true"
+
+    />
+
+Scale  伸缩动画
+
+<!-- 拉伸必须写X,Y -->
+<!-- 比例从本身的0倍到2倍 -->
+<!-- 持续时间4秒 -->
+<!-- pivotX 以图片本身的中心点拉伸 -->
+<!-- 动画停放在最后 -->
+<!-- 动画循环次数2次 -->
+<!-- 从动画结束点往回播放 -->
+<!-- 每个动画开始前停1秒 -->
+
+<scale xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:fromXScale="0" 
+    android:toXScale="2"
+    android:fromYScale="0"
+    android:toYScale="2"
+    android:duration="4000"
+    android:pivotX="50%"
+    android:pivotY="50%"
+    android:fillAfter="true"
+    android:repeatCount="2"
+    android:repeatMode="reverse"
+    android:startOffset="1000">
+
+</scale>
+
+Rotate  旋转动画
+
+<!-- fromDegrees 旋转角度从0-360度 -->
+
+<rotate xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:duration="5000"
+    android:fillAfter="true"
+    android:fromDegrees="0"
+    android:toDegrees="360" 
+    android:pivotX="50%"
+    android:pivotY="50%"
+    android:repeatCount="-1"
+    android:repeatMode="restart"
+    >
+
+</rotate>
+
+Alpha  透明度动画
+
+<!-- 透明度 -->
+<!-- 透明度为100 -->
+<!-- 透明度为0 -->
+<!-- 持续时间 -->
+<!-- 停放在最后 -->
+<!-- 从最后开始往回播放 -->
+<!-- 每隔1秒开始动画 -->
+
+<alpha xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:fromAlpha="1"
+    android:toAlpha="0" 
+    android:duration="3000"
+    android:repeatCount="4"
+    android:fillAfter="true"
+    android:repeatMode="reverse" 
+    android:startOffset="1000"
+    >
+
+</alpha>

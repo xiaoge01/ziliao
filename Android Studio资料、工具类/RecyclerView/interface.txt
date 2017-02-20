@@ -1,0 +1,40 @@
+
+    //在ViewHolder方法中写接口回调
+    @Override
+    public void onBindViewHolder(final MainViewHolder holder, final int position) {
+        
+
+
+        // ####################   item点击事件   #################
+        if (onItemClickListener !=null){
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onItemClickListener.onItemClick(holder.itemView,position);
+                }
+            });
+            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    onItemClickListener.onItemLongClick(holder.itemView,position);
+                    return true;
+                }
+            });
+        }
+    }
+   
+    建立接口类（抽象类）
+   // ###################################   item的点击时间（接口回调） ##############
+    public interface OnItemClickListener{
+
+        void onItemClick(View view,int postion);
+
+        void onItemLongClick(View view,int postion);
+    }
+
+    private OnItemClickListener onItemClickListener;
+
+    //对外提供一个监听的方法
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener){
+        this.onItemClickListener = onItemClickListener;
+    }

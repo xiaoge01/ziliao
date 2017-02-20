@@ -1,0 +1,45 @@
+
+       private NotifictionManager notifictionManager;
+
+       /**
+	 * 使用 NotifictionManager,显示消息弹出框
+	 * 
+	 */
+	public void send_handler(View v) {
+		// 初始化 NotifictionManager
+		notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+		// 初始化 Notification下的Builder
+		NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
+
+		builder.setContentTitle("QQ");// 显示APP名字
+		builder.setSmallIcon(R.drawable.a1);// 显示弹出消息的小图标
+		builder.setContentText("点击进入");// 消息内容标题
+		builder.setProgress(100, 20, true);// 1.true 可视化进度条长度20 2.false
+											// 进度条固定在20的长度
+		// 点击消息框进行跳转
+		Intent intent = new Intent(this, SceondActivity.class);// 填写地址
+		PendingIntent intent01 = PendingIntent.getActivity(this, 1000, intent, PendingIntent.FLAG_CANCEL_CURRENT);// 填写跳转要求
+		builder.setContentIntent(intent01);// 跳转
+		// 设置点击消息后是否删除消息
+		builder.setAutoCancel(true);// 1.true 删除 2.不删除
+		builder.setTicker("您有一条消息");// 消息提示
+		// 大图标 App
+		// builder.setLargeIcon(BitmapFactory.decodeResource(getResources(),R.drawable.a1));
+		// 自定义消息框
+		// RemoteViews views=new RemoteViews(getPackageName(),R.layout.activity_sceond);
+		// builder.setContent(views);
+
+		// 将添加的内容转化成 Notification
+		Notification notification = builder.build();
+		// 设置来电消息的声音和振动 震动需要加权限
+		notification.defaults = Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE;// 声音为系统默认声音
+		notification.flags = Notification.FLAG_NO_CLEAR | Notification.FLAG_INSISTENT;// 设置不可删除
+																						// 震动重复
+
+		// 添加完内容 用NotificationManager的对象 来实现 1:id:消息编码 2:Notification的对象
+		notificationManager.notify(1, notification);
+	}
+
+	public void clear(View v) {
+		notificationManager.cancel(1);// 清除消息
+	}

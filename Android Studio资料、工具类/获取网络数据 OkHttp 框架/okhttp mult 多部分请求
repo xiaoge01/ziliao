@@ -1,0 +1,61 @@
+﻿OkHttp 的使用
+
+1. 添加依赖：
+
+    compile 'com.squareup.okhttp3:okhttp:3.5.0'
+
+2. 初始化：
+
+    OkHttpClient okHttpClient = new OkHttpClient();
+
+3. 构建请求：
+
+    // 多部分提交:包括多个部分(每一个部分对应的单独的请求体)一起提交到服务器
+    // 将多个请求体构建到一个多部分请求体里面
+    @Override
+    public Call postMult(String url, MultUser multUser) {
+        //初始化一个 MultipartBody（以请求体的形式提交）
+        RequestBody requestBody = new MultipartBody.Builder()
+                .addPart(RequestBody.create(null,new Gson().toJson(multUser)))
+                .build();
+
+        Request request = new Request.Builder()
+                .post(requestBody)
+                .url(url)
+                .build();
+
+        return OkHttpClient.newCall(request);
+    }
+
+4. 执行请求：
+
+    Call call = okHttpClient.newCall(request).execute();同步执行,容易阻塞线程
+    Call call = okHttpClient.newCall(request).enqueue();异步回调
+
+知识技能：
+
+1. Call模型：一次请求和响应做了管理，不管你中间有多少次重定向或者是重写
+
+   构建：okHttpClient.newCall(request);执行：execute()，enqueue()
+
+   取消：call.cancel方法。
+
+2. 功能：（日志）拦截器是OkHttp的功能，需要给OKHttpClient设置上
+
+    1. 需要添加依赖的：
+
+        compile 'com.squareup.okhttp3:logging-interceptor:3.5.0'
+
+    2. 设置给OkHttpClient
+
+        // 创建OkHttp的拦截器并且设置打印级别
+
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+        mOkHttpClient = new OkHttpClient.Builder()
+                                .addInterceptor(interceptor)
+                                .build();
+
+    3. 作用：拦截的是请求和响应的信息
+

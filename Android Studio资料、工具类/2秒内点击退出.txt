@@ -1,0 +1,26 @@
+1、private long lasttime;
+
+   if(System.currentTimeMillis()-lasttime<2000){
+			MyActivity.exit();
+      }else{
+			Toast.makeText(this, "请再按一次", Toast.LENGTH_LONG).show();
+			lasttime=System.currentTimeMillis();
+	    }
+
+2、isExit=false;//是否退出
+
+  @onClick
+  public void onClick(){
+     if(!isExit){
+     isExit=ture;
+     //2秒内没有点击 isExit 从新置为false
+         listView.postDelayed(new Runnable() {
+             @Override
+             public void run() {
+               isExit=false;  
+             }
+         },2000);
+     }
+     finish();
+  }
+   

@@ -1,0 +1,46 @@
+        // 定义等待层
+	private WaittingDialog waitingDialog;
+
+
+   /**
+     * 开启动画
+     */
+    public void showprogress(){
+        if(waitingDialog==null){
+            waitingDialog=new WaitingDialog(this, R.style.MyWaittingStyle);
+        }
+        waitingDialog.startAnimation();
+        waitingDialog.show();
+    }
+   /**
+     * 关闭动画
+     */
+    public void closeprogress(){
+
+        if(waitingDialog!=null){
+            waitingDialog.stopAnimation();
+            waitingDialog.cancel();
+        }
+    }
+
+
+
+<!-- 等待层的 Style Theme -->
+
+
+    <!-- 等待层样式 背景颜色为透明色-->
+    <!-- parent 继承系统的Dialog主题 -->
+
+    <style name="MyWaittingStyle" parent="@android:style/Theme.Dialog">
+        <item name="android:windowBackground">@color/transparent</item>
+    </style>
+
+
+ 
+    <!-- 等待层样式 背景颜色为透明色-->
+
+    <style name="waittingStyle">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsFloating">true</item>
+        <!-- 是否浮在activity界面 -->
+    </style>

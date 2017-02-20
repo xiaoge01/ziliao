@@ -1,0 +1,46 @@
+    //Butterknife依赖
+    compile 'com.jakewharton:butterknife:8.4.0'
+    compile 'com.jakewharton:butterknife-compiler:8.4.0'
+
+    // 圆形的图片
+    compile 'com.pkmmte.view:circularimageview:1.1'
+
+    //卡片
+    compile 'com.android.support:cardview-v7:25.0.1'
+
+    //抽屉依赖
+    compile 'com.android.support:support-v4:25.0.1'
+    compile 'com.android.support:design:25.0.1'
+
+    //Retrofit 网络请求
+    compile 'com.squareup.retrofit2:retrofit:2.1.0'
+
+    //Okhttp 网络请求
+    compile 'com.squareup.okhttp3:okhttp:3.5.0'
+
+    //日志拦截器
+    compile 'com.squareup.okhttp3:logging-interceptor:3.5.0'
+
+    //Gson转换器
+    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+
+    //图片处理
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+
+    //跳转相册相机的依赖
+    compile 'org.hybridsquad.android.photocropper:library:2.1.0'
+
+    //mosbyMvp依赖
+    compile 'com.hannesdorfmann.mosby:mvp:2.0.1'
+
+    //RecyclerView
+    compile 'com.android.support:recyclerview-v7:24.0.0'
+
+    //xRecyclerView
+    compile 'com.jcodecraeer:xrecyclerview:1.3.2'
+
+    //上拉刷新，下载加载的库
+    compile 'in.srain.cube:ptr-load-more:1.0.2'
+
+    //使用开源库CircleIndicator来实现ViewPager的圆点指示器
+    compile 'me.relex:circleindicator:1.2.1@aar'

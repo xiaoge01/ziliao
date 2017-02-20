@@ -1,0 +1,37 @@
+
+  //直接传 ImageView 列表
+
+public class MyAdapter02 extends PagerAdapter {
+	private ArrayList<Integer> piclist;
+
+	public MyAdapter02(ArrayList<Integer> piclist) {
+		this.piclist = piclist;
+	}
+
+	@Override
+	public int getCount() {
+		return Integer.MAX_VALUE;
+	}
+
+	@Override
+	public boolean isViewFromObject(View arg0, Object arg1) {
+		return arg0==arg1;
+	}
+	
+     //  下面两个方法需要手动重写
+	@Override
+	public Object instantiateItem(ViewGroup container, int position) {
+                //添加布局
+		View view=LayoutInflater.from(container.getContext()).inflate(R.layout.viewitem,null);
+		ImageView iv=(ImageView) view.findViewById(R.id.iv);
+		iv.setImageResource(piclist.get(position%piclist.size()));
+		container.addView(view);
+		return view;
+	}
+	@Override
+	public void destroyItem(ViewGroup container, int position, Object object) {
+               //销毁布局
+		container.removeView((View) object);
+	}
+
+}

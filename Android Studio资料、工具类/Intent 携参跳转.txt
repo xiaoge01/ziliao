@@ -1,0 +1,11 @@
+
+  //携带实体类对象
+  intent.putExtra("NEWSVO",实体类对象);
+
+ //首先要在被传得实体类对象中实现  Serializable 接口
+ 
+  public class NewsVo implements Serializable{ }
+
+  //接受携带过来的实体类对象（用 getSerializableExtra，需要强制类型转化）
+
+  NewsVo newsVo= (NewsVo) getIntent().getSerializableExtra("NEWSVO");

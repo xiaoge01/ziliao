@@ -1,0 +1,5 @@
+1、建一个存放Activity的类 --> MyActivity
+
+2、没创建一个Activity,添加到集合中
+
+3、退出调用关闭所有Activity的方法 --> ThridActivity

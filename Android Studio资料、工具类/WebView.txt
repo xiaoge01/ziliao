@@ -1,0 +1,75 @@
+    
+   //使用 WebView 需要添加权限 <uses-permission android:name="android.permission.INTERNET"/>
+       
+
+
+   //在xml中添加WebView
+   vebview= (WebView) findViewById(R.id.vebview);
+   //加载网址，展示内容
+   vebview.loadUrl("http://www.baidu.com");
+
+
+
+   //在代码中添加WebView
+   WebView webview=new WebView(this);
+   //加载网址，展示内容
+   webview.loadUrl("http://www.baidu.com");
+   setContentView(webview);
+
+
+        //打开链接默认为其他浏览器打开，不是当前项目打开
+
+        //设置在当前项目下打开链接  手动重写 shouldOverrideUrlLoading 的方法
+        webview.setWebViewClient(new WebViewClient() {
+
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+                return super.shouldOverrideUrlLoading(view, request);
+            }
+        });
+
+        //设置进度条  手动重写 onProgressChanged 的方法
+        webview.setWebChromeClient(new WebChromeClient(){
+            @Override
+            public void onProgressChanged(WebView view, int newProgress) {
+                super.onProgressChanged(view, newProgress);
+                progress.setProgress(newProgress);//newProgress 是当前进度 max=100;
+
+                  if(newProgress==100){
+                    progress.setVisibility(View.GONE);//进度条完成设为不可见
+                }
+            }
+        });
+
+
+  //对 WebView 进行设置
+  WebSettings webSettings=webview.getSettings();
+
+        //设置缓存（无缓存从网上获取，有缓存从本地获取）
+        webSettings.setCacheMode(webSettings.LOAD_CACHE_ELSE_NETWORK);
+        //设置自适应大小（需要写WebView的人在代码中设置）
+        webSettings.setDisplayZoomControls(true); //设置出现WebView缩放按钮
+        // 设置WebView属性，能够执行JavaScript脚本
+        webSettings.setJavaScriptEnabled(true);
+        // 设置可以支持缩放
+        webSettings.setSupportZoom(true);
+        // 设置出现缩放工具
+        webSettings.setBuiltInZoomControls(true);
+        // 为图片添加放大缩小功能
+        webSettings.setUseWideViewPort(true);
+        //自适应屏幕
+        webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+        webSettings.setLoadWithOverviewMode(true);
+
+
+
+//设置返回上一层 外层手动重写 onBackPressed或者onfinish 方法
+    @Override
+    public void onBackPressed() {
+        if (webview.canGoBack()) {
+            webview.goBack();
+        } else {
+            super.onBackPressed();
+        }
+
+    }

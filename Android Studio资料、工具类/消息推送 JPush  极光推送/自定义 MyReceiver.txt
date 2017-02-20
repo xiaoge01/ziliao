@@ -1,0 +1,65 @@
+/**
+ * 自定义接收器
+ * <p>
+ * 如果不定义这个 Receiver，则：
+ * 1) 默认用户会打开主界面
+ * 2) 接收不到自定义消息
+ */
+public class MyReceiver extends BroadcastReceiver {
+    private NewsVo newsVo;
+    private String result;
+
+    @Override
+    public void onReceive(Context context, Intent intent) {
+
+        Bundle bundle = intent.getExtras();
+
+
+        if (JPushInterface.ACTION_MESSAGE_RECEIVED.equals(intent.getAction())) {
+            Log.i("TAG", "接受到推送下来的自定义消息");
+            //receivingNotification(context, bundle);
+        } else if (JPushInterface.ACTION_NOTIFICATION_RECEIVED.equals(intent.getAction())) {
+            Log.i("TAG", "接受到推送下来的通知");
+            //获取附带字符串
+            Jump(context, bundle);
+
+        } else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent.getAction())) {
+            Log.i("TAG", "用户点击打开了通知");
+            //打开自定义的Activity
+            Intent i = new Intent(context, NewsDetailsActivity.class);
+            i.putExtra("NEWSVO", newsVo);
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            context.startActivity(i);
+
+        }
+
+    }
+
+    public void Jump(Context context, Bundle bundle) {
+        
+        //判断是否有附带字段
+        if (!bundle.getString(JPushInterface.EXTRA_EXTRA).isEmpty()) {
+            try {
+                //获取附带字段
+                JSONObject json = new JSONObject(bundle.getString(JPushInterface.EXTRA_EXTRA));
+                Iterator<String> it = json.keys();
+                while (it.hasNext()) {
+                    String myKey = it.next().toString();
+                    //获取附带字段里的Json字符串
+                    result = json.optString(myKey);
+                    Log.e("DDDDD", json.optString(myKey));
+                }
+            } catch (JSONException e) {
+                Log.e("TAG", "解析附带字段异常！");
+            }
+            //解析获取出来的Json字符串
+            Gson gson = new Gson();
+            newsVo = gson.fromJson(result, NewsVo.class);
+        }
+    }
+}
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        context.startActivity(i);
+
+    }
+}

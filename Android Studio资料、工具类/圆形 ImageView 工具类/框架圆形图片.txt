@@ -1,0 +1,21 @@
+
+
+   // 圆形的图片 添加依赖
+   
+    compile 'com.pkmmte.view:circularimageview:1.1'
+
+   //使用
+
+   <com.pkmmte.view.CircularImageView
+
+        
+        android:layout_width="@dimen/dp_100"
+        android:layout_height="@dimen/dp_100"
+        android:src="@mipmap/user_icon"
+        
+        //边框属性
+        app:border="true"
+        app:border_color="#16f5f5f5"
+        app:border_width="@dimen/dp_8"
+        />
+

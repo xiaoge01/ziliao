@@ -1,0 +1,4 @@
+
+
+    Animation animation=AnimationUtils.loadAnimation(this, R.anim.main_animation);
+    iv.startAnimation(animation);

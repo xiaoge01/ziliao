@@ -1,0 +1,121 @@
+
+  public class MainActivity extends Activity implements View.OnLongClickListener, View.OnTouchListener {
+
+    @Bind(R.id.btn01)
+    Button btn01;
+
+    private boolean islong = false;
+    private int viewwidth,viewheight;
+    private int btn01width,btn01height;
+    private int moveX,moveY,lastX,lastY;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
+
+        //获取屏幕宽高(是整个显示屏的宽高)
+        Display display = getWindowManager().getDefaultDisplay();
+        viewwidth = display.getWidth();
+        viewheight = display.getHeight();
+
+
+        //设置监听
+        btn01.setOnLongClickListener(this);//长按监听
+        btn01.setOnTouchListener(this);//触摸监听
+    }
+
+
+    /**
+     * 长按监听（高级的监听）
+     */
+    @Override
+    public boolean onLongClick(View view) {
+        Log.e("ONCLICK", "长按监听");
+        islong = true;
+        //必须长按1秒以上才实现监听
+        //有点击监听的情况下，返回值为false:长按监听的同时点击监听
+        //有点击监听的情况下，返回值为true:长按监听时没有点击监听
+        return true;
+    }
+
+
+    /**
+     * 触摸监听
+     * Activity 自带的触摸监听针对整个布局，通过实现接口监听可以针对某个控件
+     * view 控件ID,MotionEvent 触摸的各个状态
+     */
+    @Override
+    public boolean onTouch(View view, MotionEvent motionEvent) {
+        //Log.e("ONCLICK", "触摸监听");
+        //获取控件宽高
+        btn01width=btn01.getRight()-btn01.getLeft();
+        btn01height=btn01.getBottom()-btn01.getTop();
+        //motionEvent.getAction() 是各种触摸状态
+        switch (motionEvent.getAction()) {
+            //按下监听
+            case MotionEvent.ACTION_DOWN:
+                Log.e("ONCLICK", "按下监听");
+                //getX、getY是相对于自身的X、Y坐标（相对于触摸点）
+                //getRawX、getRawY相对于整个显示屏的X、Y坐标(相对于触摸点的)
+                //motionEvent.getX();
+                //motionEvent.getY();
+                //获取第一次触摸点的坐标
+                lastX= (int) motionEvent.getRawX();
+                lastY= (int) motionEvent.getRawY();
+
+                break;
+            //移动监听
+            case MotionEvent.ACTION_MOVE:
+                if (islong) {
+
+                    //获取移动的X和Y的距离
+                    moveX= (int) (motionEvent.getRawX()-lastX);
+                    moveY= (int) (motionEvent.getRawY()-lastY);
+                    //获取移动后控件4边的坐标
+                    int l=btn01.getLeft()+moveX;
+                    int t=btn01.getTop()+moveY;
+                    int r=btn01.getRight()+moveX;
+                    int b=btn01.getBottom()+moveY;
+
+                    if(l<0){
+                        l=0;
+                        r=btn01width;
+                    }
+                    if(r>viewwidth){
+                        r=viewwidth;
+                        l=viewwidth-btn01width;
+                    }
+                    if(t<0){
+                        t=0;
+                        b=btn01height;
+                    }
+                    if(b>viewheight-40){
+                        t=viewheight-btn01height-40;
+                        b=viewheight-40;
+                    }
+                    //Log.e("ONCLICK", ">>>"+l+">>>"+t+">>>"+r+">>>"+b);
+                    //控件重新布局
+                    btn01.layout(l,t,r,b);
+
+                    //重新布局后获取每一次触摸点的坐标
+                    lastX= (int) motionEvent.getRawX();
+                    lastY= (int) motionEvent.getRawY();
+                    //Log.e("ONCLICK", ">>>01"+lastX+">>>01"+lastY);
+                    Log.e("ONCLICK", "移动监听");
+                }
+
+                break;
+            //松开监听
+            case MotionEvent.ACTION_UP:
+                islong = false;
+                Log.e("ONCLICK", "松开监听");
+                break;
+        }
+        //返回值为false：按先后顺序监听，触摸、长按、触摸、点击
+        //返回值为true：只触发触摸监听
+        return false;
+    }
+}

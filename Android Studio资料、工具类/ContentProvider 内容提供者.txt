@@ -1,0 +1,36 @@
+
+   获取手机联系人需要添加权限：
+                              <!-- 读取联系人权限 -->
+                              <uses-permission android:name="android.permission.READ_CONTACTS" />
+                              <uses-permission android:name="android.permission.WRITE_CONTACTS" />
+
+   /**
+     * 用ContentProvider获取手机联系人
+     */
+    public void getphonemessgae() {
+        //想要获取手机联系人，需要手机联系人的资源地址 Uri（网上可查找各种Uri）
+        Uri uri = ContactsContract.Contacts.CONTENT_URI;
+        //和SqlitedateBase 数据库一样，ContentResolver是ContentProvider的核心类
+        ContentResolver contentResolver = getContentResolver();
+        //用核心类操作获取联系人(查看内容的资源地址，查看条件（写null表示查看全部）)
+        Cursor cursor = contentResolver.query(uri, null, null, null, null);//返回值为Cursor游标
+        while (cursor.moveToNext()) {
+            String phoneid = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID));
+            String phonename = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
+            Log.e("PHONE", "phoneid:" + phoneid);
+            Log.e("PHONE", "phonename:" + phonename);
+
+            //判断是否有联系人 0：没有，1：有
+            int has = cursor.getInt(cursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER));
+            Log.e("TAL", "has:" + has);
+            if (has > 0) {
+                //有联系人（查看每一个联系人号码的资源地址Uri）:(根据联系人id查看(判断条件和数据库一样))
+                Cursor phonesCursor = contentResolver.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, ContactsContract.Contacts._ID+"=?", new String[]{String.valueOf(phoneid)}, null);
+                while (phonesCursor.moveToNext()) {
+                    //获取每一个联系人的所有号码
+                    String phoneNum = phonesCursor.getString(phonesCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                    Log.e("TAL", "phoneNum:" + phoneNum);
+                }
+            }
+        }
+    }

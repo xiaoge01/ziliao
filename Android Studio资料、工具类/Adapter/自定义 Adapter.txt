@@ -1,0 +1,56 @@
+public class WasteClearAdapter extends BaseAdapter {
+	private ArrayList<WasteClearVo> wasteClearlist;
+
+	public WasteClearAdapter(ArrayList<WasteClearVo> wasteClearlist) {
+		super();
+		this.wasteClearlist = wasteClearlist;
+	}
+
+	@Override
+	public int getCount() {
+		return wasteClearlist.size();
+	}
+
+	@Override
+	public Object getItem(int position) {
+		return wasteClearlist.get(position);
+	}
+
+	@Override
+	public long getItemId(int position) {
+		return position;
+	}
+
+	@Override
+	public View getView(int position, View convertView, ViewGroup parent) {
+		ViewHolder viewHolder;//建一个内部类   用来储存findID
+		if (convertView == null) {
+			
+			viewHolder = new ViewHolder();
+			convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.wasteclearadapter, null);
+			viewHolder.clear_adapter_checkbox = (CheckBox) convertView.findViewById(R.id.clear_adapter_checkbox);
+			viewHolder.clear_adapter_image = (ImageView) convertView.findViewById(R.id.clear_adapter_image);
+			viewHolder.clear_adapter_appname = (TextView) convertView.findViewById(R.id.clear_adapter_appname);
+			viewHolder.clear_adapter_memory = (TextView) convertView.findViewById(R.id.clear_adapter_memory);
+
+			convertView.setTag(viewHolder);
+		} else {
+			viewHolder = (ViewHolder) convertView.getTag();
+		}
+
+		viewHolder.clear_adapter_checkbox.setChecked(wasteClearlist.get(position).isIscheck());
+		viewHolder.clear_adapter_checkbox.setClickable(false);
+		viewHolder.clear_adapter_image.setImageDrawable(wasteClearlist.get(position).getImage());
+		viewHolder.clear_adapter_appname.setText(wasteClearlist.get(position).getAppname());
+		viewHolder.clear_adapter_memory.setText(MemoryManager.getFileSize(wasteClearlist.get(position).getMemory()));
+		return convertView;
+	}
+
+	public class ViewHolder {
+		CheckBox clear_adapter_checkbox;
+		ImageView clear_adapter_image;
+		TextView clear_adapter_appname;
+		TextView clear_adapter_memory;
+	}
+
+}

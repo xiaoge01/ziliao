@@ -1,0 +1,46 @@
+
+	/**
+	 * 用GET获取网络资源
+	 */
+	public void httpget() {
+
+		// 建一个线程 最后必须开启 start
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+
+				try {
+					// 初始化 HttpGet，获取地址，并且使用GET 请求方式
+					HttpGet hg = new HttpGet("http://newapi.meipai.com/output/channels_topics_timeline.json?id=3");
+
+					// 获取 HttpClient 对象 建一个网络默认客户端
+					HttpClient client = new DefaultHttpClient();
+
+					// 建一个 HttpResponse 的对象去接受客户端的回应
+					HttpResponse response = client.execute(hg);// 网络客户端执行地址，相当于建立了连接;
+
+					if (response != null) {
+
+						// 获取回应中的实体内容
+						HttpEntity entity = response.getEntity();
+
+						// 用实体工具 把实体内容转化成String
+						String str = EntityUtils.toString(entity);
+						
+						// File file=new
+						// File("data/data/"+getPackageName()+"/cache","a.txt");
+						// file.createNewFile();
+						// OutputStreamWriter outputStreamWriter=new
+						// OutputStreamWriter(new FileOutputStream(file));
+						// outputStreamWriter.write(str);
+						// outputStreamWriter.close();
+						Log.d("TAGG", str);
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}).start();// 开启线程
+
+	}

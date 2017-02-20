@@ -1,0 +1,16 @@
+
+  //xml 布局当中
+  <!--Fragment  静态展示的时候必须给一个ID 或者Tag -->
+    <fragment
+        android:id="@+id/fragment"
+        //用来初始化Fragment
+        android:name="com.spro.fragment.FragMentB"
+
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+   Activity 中不需要操作
+  /**
+   * 只需要使用Activity 来展示FragMent里面的布局   静态的布局
+   */

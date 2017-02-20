@@ -1,0 +1,22 @@
+/**
+ * 范型 需要传一个对象
+ */
+
+public class NewsAdapter extends MyBaseAdapter<NewsVo>{
+    
+    private ArrayList<NewsVo> newsVos;
+
+    public NewsAdapter(ArrayList<NewsVo> newsVos) {
+        super(newsVos);
+        this.newsVos = newsVos;
+    }
+
+    /**
+     * 手动重写getview方法
+     */
+    @Override
+    public View getView(int i, View view, ViewGroup viewGroup) {
+
+        return super.getView(i, view, viewGroup);
+    }
+}

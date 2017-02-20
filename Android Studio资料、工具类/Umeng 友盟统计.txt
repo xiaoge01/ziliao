@@ -1,0 +1,40 @@
+  
+
+   第一步：添加依赖架包：compile 'com.umeng.analytics:analytics:latest.integration'
+
+   第二步：添加权限：
+             
+          <!-- Umeng 友盟统计权限-->      
+
+          <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+          <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+          <uses-permission android:name="android.permission.INTERNET"/>
+          <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+
+   第三步：在 manifests 清单中配置文件：
+
+        <!--统计-->
+        <meta-data
+            android:name="UMENG_APPKEY" android:value="您项目在友盟中的Appkey" />
+        <meta-data
+            android:name="UMENG_CHANNEL" android:value="（此处填你应用所推广的渠道，默认：Umeng）" />
+
+   第四步：在每一个Activity中添加 代码如下：
+       
+          public void onResume() {
+              super.onResume();
+              MobclickAgent.onResume(this);
+          }
+
+          public void onPause() {
+              super.onPause();
+              MobclickAgent.onPause(this);
+          }
+   
+   注：如果无法正常集成，请添加以下代码：
+  
+                                     allprojects {
+                                         repositories {
+                                               mavenCentral()     
+                                        }
+                                     }

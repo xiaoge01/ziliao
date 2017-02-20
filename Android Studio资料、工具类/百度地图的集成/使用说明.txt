@@ -1,0 +1,29 @@
+
+  可以直接去百度开放平台查看集成流程：
+
+   配置环境： http://lbsyun.baidu.com/index.php?title=androidsdk/guide/buildproject 
+
+   配置文件：http://lbsyun.baidu.com/index.php?title=androidsdk/guide/hellobaidumap
+
+   申请秘钥：http://lbsyun.baidu.com/index.php?title=androidsdk/guide/key
+
+  1、导入架包 切换成 Project 在App目录下新建 libs 文件夹 导入libs文件夹中的架包
+
+  2、build.gradle（module app） 里面需要指定so文件的路径，添加代码 sourceSets 在Android{...最后}
+    jar可以调出来（在App下生成jniLibs文件，说明集成jar没有问题）
+
+  3、创建一个 BaiDuApplication，里面初始化百度地图的SDK
+
+  4、配置 AndroidMnifest 清单文件
+
+  5、申请秘钥：创建应用--》应用名：随便写--》应用类型：AndroidSDK-->发布者 SHA1--》应用包名
+
+  6、获取 发布者 SHA1：使用 keytool 1、自己电脑下的 debug.keystore，其他电脑无法运行 2、App 下的 debug.keystore(把 debug.keystore 文件放在Project的App下)
+
+                      ① 进入控制台 运行 cmd --> 定位到.android文件夹下，输入 cd .android --> 
+
+                         --> 输入 keytool -list -v -keystore debug.keystore --> 输入秘钥口令（密钥口令是 android）--> 获取 发布者 SHA1（电脑的秘钥）
+
+                      ② 进入控制台 运行 cmd --> 定位到 项目的debug.keystore放置的路径(cd .....app下面)(查看路径：右键project下的App->show in exp...)
+  
+                         --> 输入 keytool -list -v -keystore debug.keystore --> 输入秘钥口令（密钥口令是 android）--> 获取 发布者 SHA1（电脑的秘钥）

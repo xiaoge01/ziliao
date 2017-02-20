@@ -1,0 +1,9 @@
+三、总结
+
+1、上述步骤在ShareSdk官网都能找到，只是官网给出的步骤太乱了，这里只是给大家总结出最快速继承分享的步骤
+
+2、若不在assets目录下添加ShareSdk.xml也可实现分享，只不过在调取分享平台时无法调取分享平台的客户端模式，只能调取到网页模式
+
+3、ShareSdk.xml中所有使用到的AppKey和AppSecret都是官方给出的demo附带的，若想修改成自己的应用图标和应用名，需到指定的分享平台申请自己应用所对应的AppKey和AppSecret
+
+4、最后奉上源码demo地址：https://github.com/Knight2016/ShareSdkDemo

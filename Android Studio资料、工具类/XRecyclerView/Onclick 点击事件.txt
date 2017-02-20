@@ -1,0 +1,12 @@
+ 
+   //XRecycleView 点击事件没有直接监听，要去 Adapter中的ViewHolder里面对 view 进行OnClick监听，获取条数  getAdapterPosition()-1
+
+     itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Log.e("TTT",getAdapterPosition()+"");
+                    Intent intent=new Intent(context, NewsDetailsActivity.class);
+                    intent.putExtra("URL",newsVos.get(getAdapterPosition()-1).getLink());
+                    context.startActivity(intent);
+                }
+            });

@@ -1,0 +1,58 @@
+
+   //自定义内部类监听(也可以在new的时候  匿名内部类监听)
+
+    private Response.Listener listener=new Response.Listener() {
+        @Override
+        public void onResponse(Object response) {
+            //连接网络服务器成功
+            Log.e("AAA","请求结果："+response);
+        }
+    };
+
+    private Response.ErrorListener errorListener=new Response.ErrorListener() {
+        @Override
+        public void onErrorResponse(VolleyError error) {
+            //连接网络服务器失败
+            Log.e("AAA","请求失败："+error.getMessage());
+        }
+    };
+
+
+    /**
+     * Volley Get请求
+     */
+    public void getVolley(){
+        //声明一个请求队列(使用Volley框架)
+        RequestQueue requestQueue= Volley.newRequestQueue(this);
+        //根据需求获取网络需求
+        StringRequest stringRequest=new StringRequest(url, listener, errorListener);
+
+        requestQueue.add(stringRequest);
+
+    }
+
+
+    /**
+     * Volley Post请求
+     */
+    public void postVolley(){
+        //声明一个请求队列
+        RequestQueue requestQueue= Volley.newRequestQueue(this);
+        //根据需求获取网络需求 (Request.Method.POST) 请求方式
+
+        //请求参数 需要在new之后，加一个{ }在{ }里面重写getparms 获取参数的方法
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, url, listener, errorListener){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                //以Map 的方式添加
+                Map<String,String> map=new HashMap<>();
+                map.put("ver","0");
+                map.put("ver","0");
+
+                return map;
+            }
+        };
+
+        requestQueue.add(stringRequest);
+
+    }

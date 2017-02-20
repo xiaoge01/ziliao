@@ -1,0 +1,31 @@
+        
+        //添加参数
+        RequestParams params = new RequestParams();
+        params.addBodyParameter("token", Configs.token);
+        params.addBodyParameter("portrait", imagefile);
+
+            //Xutils 使用方法：(请求方式，请求地址，请求参数，回调接口)       
+        new HttpUtils().send(HttpRequest.HttpMethod.POST, HttpPath.userimage, params, new RequestCallBack<String>() {
+
+            //手动重写方法，用来操作获取数据之前的准备工作
+            @Override
+            public void onStart() {
+                super.onStart();
+            }
+
+            //链接服务器成功
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+
+                // 成功结果在 responseInfo.result 中
+                Log.e("SSS", "上传头像：" + responseInfo.result);
+                
+            }
+
+            //连接服务器失败
+            @Override
+            public void onFailure(HttpException error, String msg) {
+                
+                Toast.makeText(UserHomeActivity.this, "上传失败", Toast.LENGTH_SHORT).show();
+            }
+        });

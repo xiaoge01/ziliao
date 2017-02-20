@@ -1,0 +1,15 @@
+
+  xml中的代码，与 RecyclerView 结合使用
+
+   <in.srain.cube.views.ptr.PtrClassicFrameLayout
+        android:id="@+id/refreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white" />
+
+    </in.srain.cube.views.ptr.PtrClassicFrameLayout>

@@ -1,0 +1,45 @@
+  
+      //使用自己建的类
+
+      MyAnsycTask myAnsycTask = new MyAnsycTask();
+      //初始化异步任务并且去执行（可传参数）--> 传到doInBackground(String... url)
+      myAnsycTask.execute(url);
+
+
+ 
+   //新建一个 自己的 MyAnsycTask 异步任务类，去继承系统的 AsyncTask<String, Integer, String> 传参<参数，进度，结果>
+ 
+   /**
+     * 异步任务 相当于新开启一个线程
+     */
+    public class MyAnsycTask extends AsyncTask<String, Integer, String> {
+
+        //处理一些准备工作
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            Log.e("TAL","onPreExecute");
+        }
+
+        //更新进度条 （不需要进度条时，可以不用重写该方法）
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            super.onProgressUpdate(values);
+        }
+
+        //处理耗时操作和发消息 相当于 new Thread和SendHandler
+        @Override
+        protected String doInBackground(String... url) {
+            // url 是一个可变参数 需要以数组的形式展示 url[0]
+            Log.e("TAL","doInBackground");
+            
+            return null;//返回结果给 --> onPostExecute(String result)
+        }
+
+        // 展示结果 接收消息，相当于 接收Handler消息
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            Log.e("TAL","onPostExecute");
+        }
+    }

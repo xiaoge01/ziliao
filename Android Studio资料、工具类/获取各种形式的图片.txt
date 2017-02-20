@@ -1,0 +1,34 @@
+  
+
+  //从本地文件中根据文件路径获取图片
+
+   Bitmap = BitmapFactory.decodeFile("文件".getAbsolutePath());
+   
+   imageView.setImageBitmap(bitmap);
+
+
+
+  
+  //跟据图片的文件名获取图片--->用 getIdentifier方法--->获取到的是一个drawable的ID
+
+   int drawableID = context.getResources().getIdentifier("图片的文件名", "drawable", context.getPackageName());
+
+   imageView.setImageDrawable(context.getResources().getDrawable(drawableID));
+
+
+
+
+
+  //从网络服务端中根据图片根路径获取图片，直接用Java Http 原生请求(GET) 获取 IO 流
+
+         URL url=new URL("图片网址");
+
+         HttpURLConnection connection= (HttpURLConnection) url.openConnection();
+
+                        if(connection.getResponseCode()==200){
+
+                        Bitmap bitmap= BitmapFactory.decodeStream(connection.getInputStream());
+                        
+                        imageView.setImageBitmap(bitmap);
+
+                    }

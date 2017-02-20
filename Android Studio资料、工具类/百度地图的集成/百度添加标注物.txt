@@ -1,0 +1,21 @@
+
+    private BitmapDescriptor dot = BitmapDescriptorFactory.fromResource(R.mipmap.treasure_dot);
+   /**
+     * 添加标注也就是覆盖物
+     */
+    private void addMarker(LatLng target, int treasureId) {
+
+        // #2 初始化一个 MarkerOptions
+        MarkerOptions options = new MarkerOptions();
+        options.position(target);// 覆盖物的位置(经纬度)
+        options.icon(dot);// 覆盖物的图标(需要一个 BitmapDescriptor )
+        options.anchor(0.5f, 0.5f);// 锚点位置：居中
+
+        // 将宝藏的id信息保存到marker
+        Bundle bundle = new Bundle();
+        bundle.putInt("id", treasureId);//网络获取的宝藏Id
+        options.extraInfo(bundle);//添加信息
+
+        // #1 添加覆盖物 需要一个 MarkerOptions 标注覆盖物
+        map.addOverlay(options);
+    }

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    xmlns:app="http://schemas.android.com/apk/res-auto"  //设置需要申明APP
+
+    >
+
+    <android.support.design.widget.TabLayout
+
+        android:id="@+id/fragment_ty"
+        android:layout_width="match_parent"
+
+        app:tabSelectedTextColor="@color/write"  //选中之后的字体颜色
+
+        app:tabTextColor="@android:color/darker_gray"  //选中之前的字体颜色
+
+        android:layout_height="50dp"
+
+        app:tabIndicatorColor="@color/write"  //下划线颜色
+
+        app:tabTextAppearance="@style/MyTitleStyle"  //改变字体大小（在Style中）  ==》    <style name="MyTitleStyle">
+                                                                                             <item name="android:textSize">18sp</item>
+                                                                                         </style>
+
+        app:tabMode="scrollable"    //设置左右是否可以划出
+
+        android:background="@color/title_background"
+
+        >
+
+    </android.support.design.widget.TabLayout>
+
+    
+
+</LinearLayout>

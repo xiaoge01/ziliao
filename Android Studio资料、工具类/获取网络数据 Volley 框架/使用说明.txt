@@ -1,0 +1,15 @@
+
+ //使用 Volley 需要导入架包  compile 'eu.the4thfloor.volley:com.android.volley:2015.05.28'
+
+
+  //声明一个请求队列(必须使用Volley框架)
+
+  RequestQueue requestQueue= Volley.newRequestQueue(this);
+
+  //根据需求获取网络需求(StringRequest)
+
+  StringRequest stringRequest=new StringRequest(url, listener, errorListener);
+
+  //请求网络结果后  必须 把结果添加到队列当中
+
+  requestQueue.add(stringRequest);

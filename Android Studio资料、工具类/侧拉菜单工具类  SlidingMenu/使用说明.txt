@@ -1,0 +1,6 @@
+
+  1、建一个文件夹，将 CustomViewAbove，CustomViewBehind，SlidingMenu 这三个文件复制进去
+
+  2、在 res --> valus -->下建立 attrs 文件和 ids 文件
+
+  3、使用 SlidingMenu 文本中的方法实现侧滑

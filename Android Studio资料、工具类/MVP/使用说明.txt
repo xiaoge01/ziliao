@@ -1,0 +1,11 @@
+  
+   1、建一个处理业务的类  prosenter
+
+   2、Activity 相当于 View
+
+   3、建一个 接口 类，用来连接Activity和Prosenter(进行视图和业务的交互)
+
+   4、让Activity 去实现接口，并且在prosenter中实列化接口  进行回调
+
+
+   5、用来解耦，使代码更加清晰

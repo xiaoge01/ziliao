@@ -1,0 +1,5 @@
+
+
+   需要导包   compile 'org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client:4.1.2'
+   
+   需要加访问网络的权限   <uses-permission android:name="android.permission.INTERNET"/>

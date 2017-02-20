@@ -1,0 +1,27 @@
+ 
+
+   老师的博客-->分享流程的网站：http://blog.csdn.net/baidu_17619859
+
+   ShareSDK分享官网：http://www.mob.com/
+
+
+   使用ShareSDK需要导入架包： compile 'com.zftlive.android.library:feature-android-sharesdk:1.0.0'
+
+
+   <!--分享权限-->
+   <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+   <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+   <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+   <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+   <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
+   <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+   <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+   <uses-permission android:name="android.permission.GET_TASKS" />
+   <uses-permission android:name="android.permission.INTERNET" />
+   <!--蓝牙权限 -->
+   <uses-permission android:name="android.permission.BLUETOOTH" />
+   <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+
+   1.分享应用需要多个去“分享流程的网站”下载 Demo 获取里面 cn 文件夹
+
+   2.想要展示分享来自哪里-->需要去各个应用开放平台注册项目（开放平台地址在 ShareSDK.xml 文件当中）

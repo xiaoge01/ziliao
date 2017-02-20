@@ -1,0 +1,31 @@
+
+  //定义一个缓存区 LruCache
+    private LruCache<String,Bitmap> lruCache;
+
+
+  //在构造方法中初始化
+  //初始化 LruCache
+        lruCache=new LruCache<String,Bitmap>(1024*1024){
+            //手动重写 sizeOf 方法
+            @Override
+            protected int sizeOf(String key, Bitmap value) {
+                //设置图片高度和宽度
+                return value.getHeight()*value.getRowBytes();
+            }
+        };
+
+  //获取 lruCache 中缓存的图片
+         bitmap01=lruCache.get(imageUrl);
+
+      if(bitmap01==null) {
+         Bitmap bitmap = BitmapFactory.decodeStream(connection.getInputStream());
+
+  //先获取图片 再把图片放入缓存区 lruCache
+
+         lruCache.put(imageUrl, bitmap);
+
+         GetHttpImage.this.bitmap01 = bitmap;
+
+                       }
+
+   imageView.setImageBitmap(bitmap01);

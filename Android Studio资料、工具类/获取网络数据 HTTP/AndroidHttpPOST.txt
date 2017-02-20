@@ -1,0 +1,36 @@
+       /**
+	 * 用POST获取网络资源
+	 */
+	public void httppost() {
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				try {
+					HttpPost post = new HttpPost("http://newapi.meipai.com/output/channels_topics_timeline.json?id=3");
+
+					// 建一个 List<NameValuePair> 的集合
+					List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+
+					// 把参数添加到集合 new NameValuePair的子类 BasicNameValuePair
+					nameValuePairs.add(new BasicNameValuePair("page", "1"));
+
+					// 把集合发送到网络客户端 new HttpEntity 的子类 集合 输出格式
+					post.setEntity(new UrlEncodedFormEntity(nameValuePairs, "UTF-8"));// 传参
+
+					HttpClient client = new DefaultHttpClient();
+					HttpResponse response = client.execute(post);
+
+					if (response != null) {
+						HttpEntity httpEntity = response.getEntity();
+						String str = EntityUtils.toString(httpEntity);
+						Log.d("TAGG", str);
+					}
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}).start();
+
+	}

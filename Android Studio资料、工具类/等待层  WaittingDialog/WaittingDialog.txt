@@ -1,0 +1,45 @@
+/**
+ * 等待层工具类
+ */
+
+public class WaitingDialog extends Dialog {
+
+    private ImageView imageView;
+    private Animation animation;
+
+    public WaitingDialog(Context context) {
+        super(context);
+        ShowWaitingDialog(context);
+    }
+
+    public WaitingDialog(Context context, int themeResId) {
+        super(context, themeResId);
+        ShowWaitingDialog(context);
+    }
+
+    protected WaitingDialog(Context context, boolean cancelable, OnCancelListener cancelListener) {
+        super(context, cancelable, cancelListener);
+        ShowWaitingDialog(context);
+    }
+
+    //展示等待层
+    public void ShowWaitingDialog(Context context) {
+        View view = LayoutInflater.from(context).inflate(R.layout.waitingdialog, null);
+        imageView = (ImageView) view.findViewById(R.id.waiting_iv);
+        //加载动画
+        animation = AnimationUtils.loadAnimation(context, R.anim.waiting_animation);
+        //匀速插值器
+        animation.setInterpolator(new LinearInterpolator());
+        setContentView(view);
+    }
+
+    //开启动画
+    public void startAnimation() {
+        imageView.startAnimation(animation);
+    }
+
+    //关闭动画
+    public void stopAnimation() {
+        imageView.clearAnimation();
+    }
+}

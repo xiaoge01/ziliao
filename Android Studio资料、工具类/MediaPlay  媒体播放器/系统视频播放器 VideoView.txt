@@ -1,0 +1,21 @@
+
+先在xml中 布局：VideoView 控件
+
+       //设置横屏(默认竖屏)
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);//横屏
+
+        // # 1 初始化
+        VideoView  vv = (VideoView) findViewById(R.id.vv);
+
+        // # 2 绑定资源
+        vv.setVideoPath(Environment.getRootDirectory().getAbsolutePath() + "/dream.mp4");
+
+        // # 3 获取控制器
+        MediaController mediaController = new MediaController(this);
+
+        // # 4 互相绑定
+        vv.setMediaController(mediaController);
+        mediaController.setMediaPlayer(vv);
+
+        // # 5 播放视频
+        vv.start();

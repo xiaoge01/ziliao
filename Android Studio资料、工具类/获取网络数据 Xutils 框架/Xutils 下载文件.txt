@@ -1,0 +1,52 @@
+ /**
+     * 下载最新版本
+     */
+    private ProgressDialog progressDialog;
+    public void loadvertion(String url) {
+        //用个假的url来测试
+        url = "http://services.gradle.org/distributions/gradle-2.2-rc-2-bin.zip";
+        //准备一个用来储存下载的文件的文件
+        File folder = new File("/data/data/" + dailyNewsActivity.getPackageName() + "/apk/");
+        //先建文件夹
+        folder.mkdirs();
+        final File file = new File(folder, System.currentTimeMillis() + url.substring(url.lastIndexOf(".")));
+        //用 HttpUtils().download下载文件（地址，文件路径，回调接口）之前需要准备好一个文件
+        new HttpUtils().download(url, "文件路径", new RequestCallBack<File>() {
+
+            //下载前的准备
+            @Override
+            public void onStart() {
+                super.onStart();
+                //准备一个可见下载过程的进度条
+                progressDialog=new ProgressDialog(dailyNewsActivity);
+                progressDialog.setTitle("正在下载...");
+                progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+                progressDialog.setCancelable(false);//无法退出进度条
+                progressDialog.setCanceledOnTouchOutside(false);//能通过物理返回键退出进度条
+            }
+
+            //下载成功
+            @Override
+            public void onSuccess(ResponseInfo<File> responseInfo) {
+                //跳转到安装界面
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
+                startActivity(intent);
+            }
+
+            //下载失败
+            @Override
+            public void onFailure(HttpException error, String msg) {
+                Toast.makeText(dailyNewsActivity, "下载失败", Toast.LENGTH_SHORT).show();
+            }
+
+            //下载进度
+            @Override
+            public void onLoading(long total, long current, boolean isUploading) {
+                super.onLoading(total, current, isUploading);
+                //更新进度条
+                progressDialog.setMax((int) total);
+                progressDialog.setProgress((int) current);
+            }
+        });
+    }

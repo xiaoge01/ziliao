@@ -1,0 +1,53 @@
+
+    private MediaPlayer mp;
+    private TextureView textureView;
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        // 初始化MediaPlay
+         mp = new MediaPlayer();
+        //初始化 TextureView 视频控件
+        textureView = new TextureView(getContext());
+        return textureView;
+    }
+
+   /**
+     * 手动重写 onViewCreated 方法
+     */
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        // 设置监听：因为播放显示内容需要SurfaceTexture，所以设置监听判断SurfaceTexture有没有准备好或有没有变化等
+        textureView.setSurfaceTextureListener(this);
+        //需要实现接口
+    }
+
+    //实现接口重写的方法 已经准备好了
+    @Override
+    public void onSurfaceTextureAvailable(SurfaceTexture surfaceTexture, int i, int i1) {
+
+        try {
+            //获取Assets文件夹下的MP4 资源
+            AssetFileDescriptor fd = getContext().getAssets().openFd("welcome.mp4");
+            FileDescriptor fileDescriptor = fd.getFileDescriptor();
+            mp.reset();
+            //设置资源(需要FileDescriptor资源)
+            mp.setDataSource(fileDescriptor,fd.getStartOffset(),fd.getLength());
+            mp.prepareAsync();//准备
+            mp.setLooping(true);//是否循环播放
+            //准备完成之后
+            mp.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                @Override
+                public void onPrepared(MediaPlayer mediaPlayer) {
+                    //需要 SurfaceTexture与mp 建立连接
+                    Surface surface=new Surface(surfaceTexture);
+                    mp.setSurface(surface);//建立mp与控制器之间的联系
+                    mp.start();//播放
+                }
+            });
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }

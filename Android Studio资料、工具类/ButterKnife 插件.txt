@@ -1,0 +1,84 @@
+ 
+  使用 ButterKnife 插件，是为了简化 FindId 和 OnClick 监听
+
+  第一步：添加依赖架包：compile 'com.jakewharton:butterknife:8.4.0'
+                       annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
+       
+         （添加架包后可使用 ButterKnife 插件，但是只能手动 书写，无法一键生成）
+
+  第二步：设置一键生成快捷方式：
+
+         ① 点击 File --> ② 点击 Settings --> ③ 点击 Plugins --> ④ 输入 ButterKnife 点击搜索 --> ⑤ 选择 AndroidButterKnife...点击右边 Install 下载
+
+         ⑥ 重启 AndroidStudio
+
+  第三步：使用快捷键：选中说要使用的View布局，右键构造（按需求选择）
+
+  第四步：与Activity建立联系：
+                                             //绑定注解（Activity）
+          必须在 setContentView();之后， 添加 ButterKnife.bind(this); （最后写在 BaseActivity 里面，不然需要在每一个Activity添加）
+
+          在适配器和Fragment 添加 ButterKnife.bind(this,view); 需要传（this,view）
+
+    
+          Fragment 绑定：@Bind(R.id.fav_listview)
+                         ListView favListview;
+
+                         @Override
+                         public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+                                 View view = inflater.inflate(R.layout.fragment_favorate, null);
+                                 ButterKnife.bind(this,view);
+
+                                 return view;
+                         } 
+
+                       //XrecycleView Adapter 
+         Adapter 绑定：① public class MyViewHolder extends RecyclerView.ViewHolder {
+
+                                 @Bind(R.id.commentlist_image)
+                                 CircleImageView commentlistImage;
+                                 @Bind(R.id.commentlist_username)
+                                 TextView commentlistUsername;
+                                 @Bind(R.id.commentlist_content)
+                                 TextView commentlistContent;
+                                 @Bind(R.id.commentlist_time)
+                                 TextView commentlistTime;
+
+                               public MyViewHolder(View itemView) {
+                                   super(itemView);
+                                   ButterKnife.bind(this,itemView);
+                               }
+                         }     
+
+                           // BaseAdapter 
+         Adapter 绑定：②  @Override
+                           public View getView(int i, View view, ViewGroup viewGroup) {
+                                 MyViewHolder myViewHolder;
+                                 if (view == null) {
+                                     view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.news_adapter, null);
+                                     myViewHolder = new MyViewHolder(view);
+                                     view.setTag(myViewHolder);
+                                 } else {
+                                     myViewHolder = (MyViewHolder) view.getTag();
+                                         }     
+
+                          public class MyViewHolder {
+                                //初始化控件
+                                @Bind(R.id.news_adapter_iv)
+                                ImageView newsAdapterIv;
+                                @Bind(R.id.news_adapter_title)
+                                TextView newsAdapterTitle;
+                                @Bind(R.id.news_adapter_message)
+                                TextView newsAdapterMessage;
+                                @Bind(R.id.news_adapter_time)
+                                TextView newsAdapterTime;
+
+                                private View view;
+
+                                public MyViewHolder(View view) {
+                                    this.view = view;
+                                    ButterKnife.bind(this,view);
+                                }
+                          }                    
+                           

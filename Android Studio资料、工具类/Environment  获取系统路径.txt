@@ -1,0 +1,14 @@
+   
+    通过Environment获取的  
+  
+            Environment.getDataDirectory().getPath() :                获得根目录/data 内部存储路径  
+  
+            Environment.getDownloadCacheDirectory().getPath()  :      获得缓存目录/cache  
+
+   if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+               //首先要判断外置SD路径正常  
+
+            Environment.getExternalStorageDirectory().getPath():      获得SD卡目录/mnt/sdcard（获取的是手机外置sd卡的路径）
+   }
+            Environment.getRootDirectory().getPath() :                获得系统目录/system  
+  

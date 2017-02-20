@@ -1,0 +1,22 @@
+
+  1、添加依赖：
+              //ImageLoader（用于图片加载）
+              compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
+
+  2、建一个 EasyShopApplication 类进行初始化 ImageLoader
+
+  3、清单命名这个类：
+                     <application
+                                ...
+                         android:name=".EasyShopApplication"
+                                ...
+                     >
+
+  4、建立图片加载工具类 AvatarLoadOptions
+
+  5、使用：
+          //头像加载操作
+          ImageLoader.getInstance()
+                   //参数，“头像路径（服务器）”，“头像显示的控件”,“加载选项”
+                   .displayImage(EasyShopApi.IMAGE_URL + url,ivUserHead,
+                           AvatarLoadOptions.build());

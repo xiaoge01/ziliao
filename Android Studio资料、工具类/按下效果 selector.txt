@@ -1,0 +1,9 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item android:state_pressed="true" android:drawable="@color/speed_button_selector"></item>
+    <item android:state_pressed="false" android:drawable="@color/allSoftListView_bakgroud"></item>
+
+</selector>
+
+
+//按下颜色  可以用 <shape /> 自己去画
