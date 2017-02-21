@@ -1,0 +1,11 @@
+
+                // new 一个广播接收器(可以是自己建的或系统的广播接收器)
+		MyBroadcastReceiver receiver = new MyBroadcastReceiver();
+		// new 一个可建立广播屏道的工具
+		IntentFilter filter = new IntentFilter();
+		filter.addAction("FM999");// 建立频道号
+
+		// ① 注册一个广播
+		registerReceiver(receiver, filter);// 需要一个广播接收器和广播频道号
+
+		// unregisterReceiver(myBroadcastReceiver);//关闭广播

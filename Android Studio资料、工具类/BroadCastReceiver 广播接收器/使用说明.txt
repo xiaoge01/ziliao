@@ -1,2 +1,12 @@
 
-  1、
+  1、先建一个广播接收器的类
+
+  2、注册广播接收器
+
+  3、发送广播:   Intent intent = new Intent();
+		// 添加广播频道号
+		intent.setAction("FM999");
+		// 携参
+		intent.putExtra("B", "嘿嘿");
+		// 发送广播
+		sendBroadcast(intent);

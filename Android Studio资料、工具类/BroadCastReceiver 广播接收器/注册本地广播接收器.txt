@@ -1,0 +1,23 @@
+
+   1、/**
+     * 初始化一个系统的广播接收器
+     */
+    private BroadcastReceiver receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            //接收广播
+            finish();
+        }
+    };
+
+
+
+   2、//注册一个本地广播(比之全局，本地只在本App中发送,更加安全)
+            IntentFilter intentFilter = new IntentFilter(MAIN_ACTION);
+            LocalBroadcastManager.getInstance(this).registerReceiver(receiver, intentFilter);
+
+
+    3、// 发广播，关闭注册广播的界面页面
+        Intent intent = new Intent(MainActivity.MAIN_ACTION);
+        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+    }
